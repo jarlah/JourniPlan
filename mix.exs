@@ -32,6 +32,7 @@ defmodule JourniPlan.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:testcontainers, "~> 1.8.4", only: [:dev, :test]},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},

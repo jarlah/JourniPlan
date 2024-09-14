@@ -1,7 +1,7 @@
 import Config
 
 config :testcontainers, 
-  enabled: true
+  enabled: true,
   database: "journi_plan_dev"
 
 # Configure your database

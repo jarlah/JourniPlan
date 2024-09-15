@@ -3,6 +3,6 @@ defmodule JourniPlanWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
+    assert html_response(conn, 200) =~ "Plan and Document Your Travels with Ease"
   end
 end

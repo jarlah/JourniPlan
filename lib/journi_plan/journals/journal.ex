@@ -15,7 +15,7 @@ defmodule JourniPlan.Journals.Journal do
   @doc false
   def changeset(journal, attrs) do
     journal
-    |> cast(attrs, [:title, :description, :is_public])
-    |> validate_required([:title, :description, :is_public])
+    |> cast(attrs, [:title, :description, :is_public, :user_id])
+    |> validate_required([:title, :description, :is_public, :user_id])
   end
 end

@@ -11,6 +11,7 @@
 <.list>
   <:item title="Title"><%= @entry.title %></:item>
   <:item title="Created at"><%= @entry.inserted_at %></:item>
+  <:item title="Created by"><%= @entry.journal.user.email %></:item>
   <:item title="Content"><%= @entry.body %></:item>
 </.list>
 

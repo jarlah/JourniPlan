@@ -13,7 +13,7 @@ defmodule JourniPlan.Journals.Entry do
   @doc false
   def changeset(entry, attrs) do
     entry
-    |> cast(attrs, [:title, :body])
-    |> validate_required([:title, :body])
+    |> cast(attrs, [:title, :body, :journal_id])
+    |> validate_required([:title, :body, :journal_id])
   end
 end

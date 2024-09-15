@@ -12,6 +12,7 @@
   <:item title="Title"><%= @journal.title %></:item>
   <:item title="Description"><%= @journal.description %></:item>
   <:item title="Created at"><%= @journal.inserted_at %></:item>
+  <:item title="Created by"><%= @journal.user.email %></:item>
 </.list>
 
 <.back navigate={~p"/journals"}>Back to journals</.back>

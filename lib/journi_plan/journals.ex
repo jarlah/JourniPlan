@@ -49,7 +49,10 @@ defmodule JourniPlan.Journals do
       ** (Ecto.NoResultsError)
 
   """
-  def get_journal!(id), do: Repo.get!(Journal, id)
+  def get_journal!(id), do:
+    Journal
+    |> Repo.get!(id)
+    |> Repo.preload(:user)
 
   @doc """
   Creates a journal.
@@ -158,7 +161,10 @@ defmodule JourniPlan.Journals do
       ** (Ecto.NoResultsError)
 
   """
-  def get_entry!(id), do: Repo.get!(Entry, id)
+  def get_entry!(id), do:
+    Entry
+    |> Repo.get!(id)
+    |> Repo.preload(journal: :user)
 
   @doc """
   Creates a entry.

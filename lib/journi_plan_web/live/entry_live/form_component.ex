@@ -21,6 +21,7 @@ defmodule JourniPlanWeb.EntryLive.FormComponent do
       >
         <.input field={@form[:title]} type="text" label="Title" />
         <.input field={@form[:body]} type="text" label="Content" />
+        <.input field={@form[:journal_id]} type="select" label="Journal" options={Enum.map(@journals, &{&1.title, &1.id})} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Entry</.button>
         </:actions>
@@ -31,9 +32,12 @@ defmodule JourniPlanWeb.EntryLive.FormComponent do
 
   @impl true
   def update(%{entry: entry} = assigns, socket) do
+    journals = Journals.list_journals()
+
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:journals, journals)
      |> assign_new(:form, fn ->
        to_form(Journals.change_entry(entry))
      end)}

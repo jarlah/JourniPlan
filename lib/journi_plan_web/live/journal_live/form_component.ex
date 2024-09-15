@@ -65,7 +65,9 @@ defmodule JourniPlanWeb.JournalLive.FormComponent do
   end
 
   defp save_journal(socket, :new, journal_params) do
-    case Journals.create_journal(journal_params) do
+    current_user = socket.assigns.current_user
+    journal_params_with_user = Map.put(journal_params, "user_id", current_user.id)
+    case Journals.create_journal(journal_params_with_user) do
       {:ok, journal} ->
         notify_parent({:saved, journal})
 

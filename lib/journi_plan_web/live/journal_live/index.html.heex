@@ -1,0 +1,49 @@
+<.header>
+  Listing Journals
+  <:actions>
+    <.link patch={~p"/journals/new"}>
+      <.button>New Journal</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="journals"
+  rows={@streams.journals}
+  row_click={fn {_id, journal} -> JS.navigate(~p"/journals/#{journal}") end}
+>
+  <:col :let={{_id, journal}} label="Title" sort_by={:title}>
+    <%= journal.title %>
+  </:col>
+  <:col :let={{_id, journal}} label="Description" sort_by={:description}>
+    <%= journal.description %>
+  </:col>
+  <:col :let={{_id, journal}} label="Created at" sort_by={:inserted_at}>
+    <%= journal.inserted_at %>
+  </:col>
+  <:action :let={{_id, journal}}>
+    <div class="sr-only">
+      <.link navigate={~p"/journals/#{journal}"}>Show</.link>
+    </div>
+    <.link patch={~p"/journals/#{journal}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, journal}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: journal.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="journal-modal" show on_cancel={JS.patch(~p"/journals")}>
+  <.live_component
+    module={JourniPlanWeb.JournalLive.FormComponent}
+    id={@journal.id || :new}
+    title={@page_title}
+    action={@live_action}
+    journal={@journal}
+    patch={~p"/journals"}
+  />
+</.modal>

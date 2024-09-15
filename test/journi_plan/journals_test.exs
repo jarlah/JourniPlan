@@ -79,11 +79,10 @@ defmodule JourniPlan.JournalsTest do
     end
 
     test "create_entry/1 with valid data creates a entry" do
-      valid_attrs = %{body: "some body", inserted_at: ~U[2024-09-14 11:40:00Z], title: "some title"}
+      valid_attrs = %{body: "some body", title: "some title"}
 
       assert {:ok, %Entry{} = entry} = Journals.create_entry(valid_attrs)
       assert entry.body == "some body"
-      assert entry.inserted_at == ~U[2024-09-14 11:40:00Z]
       assert entry.title == "some title"
     end
 
@@ -93,11 +92,10 @@ defmodule JourniPlan.JournalsTest do
 
     test "update_entry/2 with valid data updates the entry" do
       entry = entry_fixture()
-      update_attrs = %{body: "some updated body", inserted_at: ~U[2024-09-15 11:40:00Z], title: "some updated title"}
+      update_attrs = %{body: "some updated body", title: "some updated title"}
 
       assert {:ok, %Entry{} = entry} = Journals.update_entry(entry, update_attrs)
       assert entry.body == "some updated body"
-      assert entry.inserted_at == ~U[2024-09-15 11:40:00Z]
       assert entry.title == "some updated title"
     end
 

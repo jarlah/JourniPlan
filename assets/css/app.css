@@ -38,8 +38,9 @@
   @apply flex space-x-6;
 }
 
-.nav-links a {
-  @apply text-gray-800 hover:text-blue-500;
+.nav-links a,
+.nav-links-a {
+  @apply text-gray-800 hover:text-blue-500 font-semibold text-sm leading-6;
 }
 
 /* Hero Section */
@@ -172,7 +173,6 @@
 .footer {
   @apply bg-gray-800 py-8;
 }
-
 .footer .container {
   /* Manually applying container styles */
   margin-left: auto;

@@ -3,11 +3,53 @@
 <header class="header">
   <nav class="nav-container">
     <div class="logo">JourniPlan</div>
-    <ul class="nav-links">
+<ul class="nav-links">
       <li><a href="#features">Features</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
+
+      <%= if @current_user do %>
+        <!-- Logged-in User Info -->
+        <li class="text-[0.8125rem] leading-6 text-zinc-900">
+          <%= @current_user.email %>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/settings"}
+            class="nav-links-a"
+          >
+            Settings
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/log_out"}
+            method="delete"
+            class="nav-links-a"
+          >
+            Log out
+          </.link>
+        </li>
+      <% else %>
+        <!-- Guest User Options -->
+        <li>
+          <.link
+            href={~p"/users/register"}
+            class="nav-links-a"
+          >
+            Register
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/log_in"}
+            class="nav-links-a"
+          >
+            Log in
+          </.link>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </header>

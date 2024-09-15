@@ -9,6 +9,20 @@ defmodule JourniPlan.Journals do
   alias JourniPlan.Journals.Journal
 
   @doc """
+  Returns the list of journals for a user
+
+  ## Examples
+
+      iex> list_journals(user)
+      [%Journal{}, ...]
+
+  """
+  def list_journals(user) do
+    Repo.all(from j in Journal, where: j.user_id == ^user.id)
+  end
+
+
+  @doc """
   Returns the list of journals.
 
   ## Examples
@@ -103,6 +117,19 @@ defmodule JourniPlan.Journals do
   end
 
   alias JourniPlan.Journals.Entry
+
+  @doc """
+  Returns the list of entrie for a journal
+
+  ## Examples
+
+      iex> list_entries(journal)
+      [%Entry{}, ...]
+
+  """
+  def list_entries(journal) do
+    Repo.all(from e in Entry, where: e.journal_id == ^journal.id)
+  end
 
   @doc """
   Returns the list of entries.

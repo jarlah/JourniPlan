@@ -17,7 +17,7 @@ defmodule JourniPlan.JournalsFixtures do
       })
       |> JourniPlan.Journals.create_journal()
 
-    journal
+    JourniPlan.Journals.get_journal!(journal.id)
   end
 
   @doc """
@@ -33,6 +33,6 @@ defmodule JourniPlan.JournalsFixtures do
       })
       |> JourniPlan.Journals.create_entry()
 
-    entry
+    JourniPlan.Journals.get_entry!(entry.id)
   end
 end

@@ -10,7 +10,8 @@ defmodule JourniPlanWeb.JournalLiveTest do
   @invalid_attrs %{title: "", description: ""}
 
   defp create_journal(_) do
-    journal = journal_fixture()
+    user = user_fixture()
+    journal = journal_fixture(%{ user_id: user.id })
     %{journal: journal}
   end
 

@@ -19,6 +19,7 @@ defmodule JourniPlan.Journals do
   """
   def list_journals(user) do
     Repo.all(from j in Journal, where: j.user_id == ^user.id)
+    |> Repo.preload(:user)
   end
 
 
@@ -33,7 +34,9 @@ defmodule JourniPlan.Journals do
   """
   def list_journals do
     Repo.all(Journal)
+    |> Repo.preload(:user)
   end
+
 
   @doc """
   Gets a single journal.
@@ -132,6 +135,7 @@ defmodule JourniPlan.Journals do
   """
   def list_entries(journal) do
     Repo.all(from e in Entry, where: e.journal_id == ^journal.id)
+    |> Repo.preload(journal: :user)
   end
 
   @doc """
@@ -145,6 +149,7 @@ defmodule JourniPlan.Journals do
   """
   def list_entries do
     Repo.all(Entry)
+    |> Repo.preload(journal: :user)
   end
 
   @doc """

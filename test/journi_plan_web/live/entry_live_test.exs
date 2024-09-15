@@ -10,27 +10,28 @@ defmodule JourniPlanWeb.EntryLiveTest do
   @invalid_attrs %{title: "", body: ""}
 
   defp create_entry(_) do
-    journal = journal_fixture()
+    user = user_fixture()
+    journal = journal_fixture(%{ user_id: user.id })
     entry = entry_fixture(%{journal_id: journal.id})
-    %{entry: entry}
+    %{entry: entry, user: user}
   end
 
   describe "Index" do
     setup [:create_entry]
 
-    test "lists all entries", %{conn: conn} do
+    test "lists all entries", %{conn: conn, user: user} do
       {:ok, _lv, html} =
         conn
-        |> log_in_user(user_fixture())
+        |> log_in_user(user)
         |> live(~p"/entries")
 
       assert html =~ "Listing Entries"
     end
 
-    test "saves new entry", %{conn: conn} do
+    test "saves new entry", %{conn: conn, user: user} do
       {:ok, index_live, html} =
         conn
-        |> log_in_user(user_fixture())
+        |> log_in_user(user)
         |> live(~p"/entries")
 
       assert index_live |> element("a", "New Entry") |> render_click() =~
@@ -52,10 +53,10 @@ defmodule JourniPlanWeb.EntryLiveTest do
       assert html =~ "Entry created successfully"
     end
 
-    test "updates entry in listing", %{conn: conn, entry: entry} do
+    test "updates entry in listing", %{conn: conn, entry: entry, user: user} do
       {:ok, index_live, html} =
         conn
-        |> log_in_user(user_fixture())
+        |> log_in_user(user)
         |> live(~p"/entries")
 
       assert index_live |> element("#entries-#{entry.id} a", "Edit") |> render_click() =~
@@ -77,10 +78,10 @@ defmodule JourniPlanWeb.EntryLiveTest do
       assert html =~ "Entry updated successfully"
     end
 
-    test "deletes entry in listing", %{conn: conn, entry: entry} do
+    test "deletes entry in listing", %{conn: conn, entry: entry, user: user} do
       {:ok, index_live, html} =
         conn
-        |> log_in_user(user_fixture())
+        |> log_in_user(user)
         |> live(~p"/entries")
 
       assert index_live |> element("#entries-#{entry.id} a", "Delete") |> render_click()
@@ -91,19 +92,19 @@ defmodule JourniPlanWeb.EntryLiveTest do
   describe "Show" do
     setup [:create_entry]
 
-    test "displays entry", %{conn: conn, entry: entry} do
+    test "displays entry", %{conn: conn, entry: entry, user: user} do
       {:ok, _live, html} =
         conn
-        |> log_in_user(user_fixture())
+        |> log_in_user(user)
         |> live(~p"/entries/#{entry}")
 
       assert html =~ "Show Entry"
     end
 
-    test "updates entry within modal", %{conn: conn, entry: entry} do
+    test "updates entry within modal", %{conn: conn, entry: entry, user: user} do
       {:ok, show_live, html} =
         conn
-        |> log_in_user(user_fixture())
+        |> log_in_user(user)
         |> live(~p"/entries/#{entry}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~

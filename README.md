@@ -12,6 +12,56 @@
 
 Built using **Elixir** and **Phoenix LiveView**, JourniPlan aims to provide a seamless and interactive experience for travelers looking to plan and preserve memories of their adventures.
 
+## ER diagram (WIP)
+
+```mermaid
+erDiagram
+    USER {
+        int user_id PK
+        string email
+        string hashed_password
+    }
+    ITINERARY {
+        int itinerary_id PK
+        string title
+        string description
+        date start_date
+        date end_date
+        int user_id FK
+    }
+    ACTIVITY {
+        int activity_id PK
+        string name
+        string description
+        datetime start_time
+        datetime end_time
+        int itinerary_id FK
+    }
+    JOURNAL {
+        int journal_id PK
+        string title
+        string description
+        date journal_date
+        int itinerary_id FK
+        int activity_id FK
+    }
+    ENTRY {
+        int entry_id PK
+        string title
+        string body
+        date entry_date
+        int journal_id FK
+        int user_id FK
+    }
+
+    USER ||--o{ ITINERARY : owns
+    ITINERARY ||--o{ ACTIVITY : contains
+    ITINERARY ||--o{ JOURNAL : contains
+    ACTIVITY ||--o{ JOURNAL : contains
+    JOURNAL ||--o{ ENTRY : contains
+    USER ||--o{ ENTRY : creates
+```
+
 ## Start server 
 
 To start your Phoenix server:

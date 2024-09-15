@@ -2,18 +2,208 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.card {
-  @apply p-4 bg-blue-200 text-blue-800 rounded-lg;
-  
-  & .title {
-    @apply text-2xl tracking-tight font-bold;
+/* Header */
+.header {
+  @apply bg-white shadow;
+}
+
+.nav-container {
+  /* Manually applying container styles */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 100%;
+  @screen sm {
+    max-width: 640px;
+  }
+  @screen md {
+    max-width: 768px;
+  }
+  @screen lg {
+    max-width: 1024px;
+  }
+  @screen xl {
+    max-width: 1280px;
   }
   
-  & .description {
-    @apply pt-4 text-lg font-medium;
-  
-    & a {
-      @apply underline text-blue-600;
-    }
+  @apply flex justify-between items-center py-4;
+}
+
+.logo {
+  @apply text-2xl font-bold;
+}
+
+.nav-links {
+  @apply flex space-x-6;
+}
+
+.nav-links a {
+  @apply text-gray-800 hover:text-blue-500;
+}
+
+/* Hero Section */
+.hero {
+  @apply bg-blue-100 py-20;
+}
+
+.hero-container {
+  /* Manually applying container styles */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 100%;
+  @screen sm {
+    max-width: 640px;
   }
+  @screen md {
+    max-width: 768px;
+  }
+  @screen lg {
+    max-width: 1024px;
+  }
+  @screen xl {
+    max-width: 1280px;
+  }
+
+  @apply text-center;
+}
+
+.hero-container h1 {
+  @apply text-4xl font-bold text-gray-900;
+}
+
+.hero-container p {
+  @apply mt-4 text-lg text-gray-700;
+}
+
+.cta-button {
+  @apply mt-6 inline-block px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700;
+}
+
+/* Features Section */
+.features {
+  @apply py-20 bg-white;
+}
+
+.features .container {
+  /* Manually applying container styles */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 100%;
+  @screen sm {
+    max-width: 640px;
+  }
+  @screen md {
+    max-width: 768px;
+  }
+  @screen lg {
+    max-width: 1024px;
+  }
+  @screen xl {
+    max-width: 1280px;
+  }
+}
+
+.features h2 {
+  @apply text-3xl font-bold text-center text-gray-900;
+}
+
+.feature-list {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8 mt-12;
+}
+
+.feature-card {
+  @apply p-8 bg-gray-100 rounded-lg;
+}
+
+.feature-card h3 {
+  @apply text-2xl font-bold text-gray-800;
+}
+
+.feature-card p {
+  @apply mt-4 text-gray-700;
+}
+
+/* Screenshots Section */
+.screenshots {
+  @apply py-20 bg-blue-50;
+}
+
+.screenshots .container {
+  /* Manually applying container styles */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 100%;
+  @screen sm {
+    max-width: 640px;
+  }
+  @screen md {
+    max-width: 768px;
+  }
+  @screen lg {
+    max-width: 1024px;
+  }
+  @screen xl {
+    max-width: 1280px;
+  }
+
+  @apply text-center;
+}
+
+.screenshots h2 {
+  @apply text-3xl font-bold text-gray-900;
+}
+
+.screenshots-grid {
+  @apply mt-12 grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+.screenshots-grid img {
+  @apply w-full rounded-lg;
+}
+
+/* Footer */
+.footer {
+  @apply bg-gray-800 py-8;
+}
+
+.footer .container {
+  /* Manually applying container styles */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 100%;
+  @screen sm {
+    max-width: 640px;
+  }
+  @screen md {
+    max-width: 768px;
+  }
+  @screen lg {
+    max-width: 1024px;
+  }
+  @screen xl {
+    max-width: 1280px;
+  }
+
+  @apply text-center text-gray-400;
+}
+
+.footer p {
+  @apply text-gray-400;
+}
+
+.footer-links {
+  @apply flex justify-center space-x-6 mt-4;
+}
+
+.footer-links a {
+  @apply hover:text-white;
 }

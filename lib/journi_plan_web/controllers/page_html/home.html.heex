@@ -1,61 +1,59 @@
 <.flash_group flash={@flash} />
 
-<header class="bg-white shadow">
-  <nav class="container mx-auto flex justify-between items-center py-4">
-    <div class="text-2xl font-bold">JourniPlan</div>
-    <ul class="flex space-x-6">
-      <li><a href="#features" class="text-gray-800 hover:text-blue-500">Features</a></li>
-      <li><a href="#pricing" class="text-gray-800 hover:text-blue-500">Pricing</a></li>
-      <li><a href="#about" class="text-gray-800 hover:text-blue-500">About</a></li>
-      <li><a href="#contact" class="text-gray-800 hover:text-blue-500">Contact</a></li>
+<header class="header">
+  <nav class="nav-container">
+    <div class="logo">JourniPlan</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 </header>
 
-<section id="hero" class="bg-blue-100 py-20">
-  <div class="container mx-auto text-center">
-    <h1 class="text-4xl font-bold text-gray-900">Plan and Document Your Travels with Ease</h1>
-    <p class="mt-4 text-lg text-gray-700">JourniPlan helps you organize your trips and capture every moment.</p>
-    <a href="/users/register" class="mt-6 inline-block px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-      Get Started
-    </a>
+<section id="hero" class="hero">
+  <div class="hero-container">
+    <h1>Plan and Document Your Travels with Ease</h1>
+    <p>JourniPlan helps you organize your trips and capture every moment.</p>
+    <a href="/signup" class="cta-button">Get Started</a>
   </div>
 </section>
 
-<section id="features" class="py-20 bg-white">
-  <div class="container mx-auto">
-    <h2 class="text-3xl font-bold text-center text-gray-900">Features</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-      <div class="p-8 bg-gray-100 rounded-lg">
-        <h3 class="text-2xl font-bold text-gray-800">Itinerary Planner</h3>
-        <p class="mt-4 text-gray-700">Plan your trips day-by-day with ease.</p>
+<section id="features" class="features">
+  <div class="container">
+    <h2>Features</h2>
+    <div class="feature-list">
+      <div class="feature-card">
+        <h3>Itinerary Planner</h3>
+        <p>Plan your trips day-by-day with ease.</p>
       </div>
-      <div class="p-8 bg-gray-100 rounded-lg">
-        <h3 class="text-2xl font-bold text-gray-800">Micro Journaling</h3>
-        <p class="mt-4 text-gray-700">Document your journey with quick notes and media.</p>
+      <div class="feature-card">
+        <h3>Micro Journaling</h3>
+        <p>Document your journey with quick notes and media.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="screenshots" class="py-20 bg-blue-50">
-  <div class="container mx-auto text-center">
-    <h2 class="text-3xl font-bold text-gray-900">See It In Action</h2>
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-      <img src="screenshot1.png" alt="Screenshot 1" class="w-full rounded-lg">
-      <img src="screenshot2.png" alt="Screenshot 2" class="w-full rounded-lg">
+<section id="screenshots" class="screenshots">
+  <div class="container">
+    <h2>See It In Action</h2>
+    <div class="screenshots-grid">
+      <img src="screenshot1.png" alt="Screenshot 1">
+      <img src="screenshot2.png" alt="Screenshot 2">
     </div>
   </div>
 </section>
 
-<footer class="bg-gray-800 py-8">
-  <div class="container mx-auto text-center text-gray-400">
+<footer class="footer">
+  <div class="container">
     <p>&copy; 2024 JourniPlan. All rights reserved.</p>
-    <ul class="flex justify-center space-x-6 mt-4">
-      <li><a href="/privacy-policy" class="hover:text-white">Privacy Policy</a></li>
-      <li><a href="/terms-of-service" class="hover:text-white">Terms of Service</a></li>
-      <li><a href="https://twitter.com/journi_plan" class="hover:text-white">Twitter</a></li>
-      <li><a href="https://facebook.com/journi_plan" class="hover:text-white">Facebook</a></li>
+    <ul class="footer-links">
+      <li><a href="/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/terms-of-service">Terms of Service</a></li>
+      <li><a href="https://twitter.com/journi_plan">Twitter</a></li>
+      <li><a href="https://facebook.com/journi_plan">Facebook</a></li>
     </ul>
   </div>
 </footer>

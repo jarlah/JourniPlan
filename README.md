@@ -47,7 +47,7 @@ erDiagram
     MEDIA {
         int media_id PK
         string media_type
-        string media_url
+        bytea media_blob
     }
     EXPENSE {
         int expense_id PK

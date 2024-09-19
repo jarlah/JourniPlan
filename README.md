@@ -54,6 +54,7 @@ erDiagram
         string description
         decimal amount
         date expense_date
+        string currency
         int itinerary_id FK
     }
     BUDGET {

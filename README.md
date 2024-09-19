@@ -25,14 +25,7 @@ erDiagram
         int itinerary_id PK
         string title
         string description
-        date start_date
-        date end_date
         int user_id FK
-    }
-    DAY {
-        int day_id PK
-        date date
-        int itinerary_id FK
     }
     ACTIVITY {
         int activity_id PK
@@ -40,29 +33,20 @@ erDiagram
         string description
         datetime start_time
         datetime end_time
-        int day_id FK
-    }
-    JOURNAL {
-        int journal_id PK
-        string title
-        string description
-        date journal_date
         int itinerary_id FK
-        int activity_id FK
     }
     JOURNAL_ENTRY {
         int journal_entry_id PK
         string title
         string body
         date entry_date
-        int journal_id FK
+        int activity_id FK
         int user_id FK
     }
     MEDIA {
         int media_id PK
         string media_type
         string media_url
-        int journal_entry_id FK
     }
     EXPENSE {
         int expense_id PK
@@ -89,27 +73,36 @@ erDiagram
         int start_location_id FK
         int end_location_id FK
     }
-    COLLABORATION {
-        int collaboration_id PK
-        int user_id FK
-        int itinerary_id FK
+
+    MEDIA_ITINERARY {
+        int media_id PK, FK
+        int itinerary_id PK, FK
     }
+    MEDIA_ACTIVITY {
+        int media_id PK, FK
+        int activity_id PK, FK
+    }
+    MEDIA_JOURNAL_ENTRY {
+        int media_id PK, FK
+        int journal_entry_id PK, FK
+    }
+
+    ITINERARY ||--o{ MEDIA_ITINERARY : has
+    MEDIA ||--o{ MEDIA_ITINERARY : includes
+    ACTIVITY ||--o{ MEDIA_ACTIVITY : has
+    MEDIA ||--o{ MEDIA_ACTIVITY : includes
+    JOURNAL_ENTRY ||--o{ MEDIA_JOURNAL_ENTRY : has
+    MEDIA ||--o{ MEDIA_JOURNAL_ENTRY : includes
 
     USER ||--o{ ITINERARY : owns
     USER ||--o{ JOURNAL_ENTRY : creates
-    ITINERARY ||--o{ DAY : contains
-    DAY ||--o{ ACTIVITY : contains
-    ITINERARY ||--o{ JOURNAL : contains
-    ACTIVITY ||--o{ JOURNAL : contains
-    JOURNAL ||--o{ JOURNAL_ENTRY : contains
-    JOURNAL_ENTRY ||--o{ MEDIA : includes
+    ITINERARY ||--o{ ACTIVITY : contains
     ITINERARY ||--o{ EXPENSE : tracks
     ITINERARY ||--o{ BUDGET : has
     LOCATION ||--o{ ROUTE : start
     LOCATION ||--o{ ROUTE : end
-    ROUTE ||--o{ LOCATION : connects
-    USER ||--o{ COLLABORATION : participates
-    ITINERARY ||--o{ COLLABORATION : has
+    ROUTE ||--o{ ACTIVITY : includes
+    ROUTE ||--o{ ITINERARY : contains
 ```
 
 ## Start server 

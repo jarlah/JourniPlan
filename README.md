@@ -41,6 +41,7 @@ erDiagram
         string body
         date entry_date
         int activity_id FK
+        int itinerary_id FK
         int user_id FK
     }
     MEDIA {
@@ -103,6 +104,8 @@ erDiagram
     LOCATION ||--o{ ROUTE : end
     ROUTE ||--o{ ACTIVITY : includes
     ROUTE ||--o{ ITINERARY : contains
+    JOURNAL_ENTRY ||--o{ ACTIVITY : refers_to
+    JOURNAL_ENTRY ||--o{ ITINERARY : belongs_to
 ```
 
 ## Start server 

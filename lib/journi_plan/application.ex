@@ -7,21 +7,8 @@ defmodule JourniPlan.Application do
 
   @impl true
   def start(_type, _args) do
-    if Application.get_env(:testcontainers, :enabled, false) do
-      {:ok, _container} =
-        case Application.get_env(:testcontainers, :database) do
-          nil ->
-            Testcontainers.Ecto.postgres_container(app: :journi_plan)
-
-          database ->
-            Testcontainers.Ecto.postgres_container(
-              app: :journi_plan,
-              persistent_volume_name: "#{database}_data"
-            )
-        end
-    end
-
     children = [
+      JourniPlan.App,
       JourniPlanWeb.Telemetry,
       JourniPlan.Repo,
       {DNSCluster, query: Application.get_env(:journi_plan, :dns_cluster_query) || :ignore},

@@ -1,11 +1,17 @@
 import Config
 
-config :testcontainers, 
-  enabled: true,
-  database: "journi_plan_dev"
-
 # Configure your database
 config :journi_plan, JourniPlan.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "journi_plan_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+config :journi_plan, JourniPlan.EventStore,
+  serializer: Commanded.Serialization.JsonSerializer,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",

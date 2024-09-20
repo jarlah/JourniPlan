@@ -49,33 +49,6 @@ erDiagram
         string media_type
         bytea media_blob
     }
-    EXPENSE {
-        int expense_id PK
-        string description
-        decimal amount
-        date expense_date
-        string currency
-        int itinerary_id FK
-    }
-    BUDGET {
-        int budget_id PK
-        decimal amount
-        string currency
-        int itinerary_id FK
-    }
-    LOCATION {
-        int location_id PK
-        string name
-        decimal latitude
-        decimal longitude
-    }
-    ROUTE {
-        int route_id PK
-        string name
-        int start_location_id FK
-        int end_location_id FK
-    }
-
     MEDIA_ITINERARY {
         int media_id PK, FK
         int itinerary_id PK, FK
@@ -99,12 +72,6 @@ erDiagram
     USER ||--o{ ITINERARY : owns
     USER ||--o{ JOURNAL_ENTRY : creates
     ITINERARY ||--o{ ACTIVITY : contains
-    ITINERARY ||--o{ EXPENSE : tracks
-    ITINERARY ||--o{ BUDGET : has
-    LOCATION ||--o{ ROUTE : start
-    LOCATION ||--o{ ROUTE : end
-    ROUTE ||--o{ ACTIVITY : includes
-    ROUTE ||--o{ ITINERARY : contains
     JOURNAL_ENTRY ||--o{ ACTIVITY : refers_to
     JOURNAL_ENTRY ||--o{ ITINERARY : belongs_to
 ```

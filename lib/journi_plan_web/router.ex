@@ -68,34 +68,6 @@ defmodule JourniPlanWeb.Router do
       on_mount: [{JourniPlanWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
-
-      live "/journals", JournalLive.Index, :index
-      live "/journals/new", JournalLive.Index, :new
-      live "/journals/:id/edit", JournalLive.Index, :edit
-
-      live "/journals/:id", JournalLive.Show, :show
-      live "/journals/:id/show/edit", JournalLive.Show, :edit
-
-      live "/entries", EntryLive.Index, :index
-      live "/entries/new", EntryLive.Index, :new
-      live "/entries/:id/edit", EntryLive.Index, :edit
-
-      live "/entries/:id", EntryLive.Show, :show
-      live "/entries/:id/show/edit", EntryLive.Show, :edit
-
-      live "/medias", MediaLive.Index, :index
-      live "/medias/new", MediaLive.Index, :new
-      live "/medias/:id/edit", MediaLive.Index, :edit
-
-      live "/medias/:id", MediaLive.Show, :show
-      live "/medias/:id/show/edit", MediaLive.Show, :edit
-
-      live "/itineraries", ItineraryLive.Index, :index
-      live "/itineraries/new", ItineraryLive.Index, :new
-      live "/itineraries/:id/edit", ItineraryLive.Index, :edit
-
-      live "/itineraries/:id", ItineraryLive.Show, :show
-      live "/itineraries/:id/show/edit", ItineraryLive.Show, :edit
     end
   end
 

@@ -11,7 +11,6 @@ defmodule JourniPlan.ItinerariesFixtures do
     {:ok, itinerary} =
       attrs
       |> Enum.into(%{
-        uuid: Ecto.UUID.generate(),
         description: "some description",
         name: "some name"
       })

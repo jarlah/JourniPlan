@@ -10,6 +10,7 @@ defmodule JourniPlan.Itineraries.Projectors.Itinerary do
   alias JourniPlan.Itineraries.Events.ItineraryCreated
   alias JourniPlan.Itineraries.Events.ItineraryNameUpdated
   alias JourniPlan.Itineraries.Events.ItineraryDescriptionUpdated
+  alias JourniPlan.Itineraries.Events.ItineraryDeleted
 
   alias JourniPlan.Itineraries.Projections.Itinerary
 
@@ -32,6 +33,13 @@ defmodule JourniPlan.Itineraries.Projectors.Itinerary do
     case Repo.get(Itinerary, uuid) do
       nil -> multi
       itinerary -> Ecto.Multi.update(multi, :itinerary, Itinerary.changeset(itinerary, %{description: description}))
+    end
+  end)
+
+  project(%ItineraryDeleted{uuid: uuid}, _, fn multi ->
+    case Repo.get(Itinerary, uuid) do
+      nil -> multi
+      itinerary -> Ecto.Multi.delete(multi, :itinerary, itinerary)
     end
   end)
 

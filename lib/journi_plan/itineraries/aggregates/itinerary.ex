@@ -8,9 +8,11 @@ defmodule JourniPlan.Itineraries.Aggregates.Itinerary do
   alias JourniPlan.Itineraries.Aggregates.Itinerary
   alias JourniPlan.Itineraries.Commands.CreateItinerary
   alias JourniPlan.Itineraries.Commands.UpdateItinerary
+  alias JourniPlan.Itineraries.Commands.DeleteItinerary
   alias JourniPlan.Itineraries.Events.ItineraryCreated
   alias JourniPlan.Itineraries.Events.ItineraryNameUpdated
   alias JourniPlan.Itineraries.Events.ItineraryDescriptionUpdated
+  alias JourniPlan.Itineraries.Events.ItineraryDeleted
 
   def execute(%Itinerary{uuid: nil}, %CreateItinerary{} = create) do
     %ItineraryCreated{
@@ -32,6 +34,10 @@ defmodule JourniPlan.Itineraries.Aggregates.Itinerary do
     [name_command, description_command] |> Enum.filter(&Function.identity/1)
   end
 
+  def execute(%Itinerary{}, %DeleteItinerary{uuid: uuid}) do
+    %ItineraryDeleted{uuid: uuid}
+  end
+
   def apply(%Itinerary{} = todo, %ItineraryCreated{} = created) do
     %Itinerary{
       todo
@@ -47,5 +53,9 @@ defmodule JourniPlan.Itineraries.Aggregates.Itinerary do
 
   def apply(%Itinerary{} = itinerary, %ItineraryDescriptionUpdated{description: description}) do
     %Itinerary{itinerary | description: description}
+  end
+
+  def apply(%Itinerary{}, %ItineraryDeleted{}) do
+    nil
   end
 end

@@ -5,8 +5,9 @@ defmodule JourniPlan.Itineraries.Commands.UpdateItinerary do
     :description
   ]
 
-  def changeset(%__MODULE__{} = command, params) do
-    {command, params}
+  @doc false
+  def changeset(command, params) do
+    command
     |> Ecto.Changeset.cast(params, [:uuid, :name, :description])
     |> Ecto.Changeset.validate_required([:uuid, :name, :description])
   end

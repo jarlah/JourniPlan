@@ -1,6 +1,9 @@
-defmodule JourniPlan.Itineraries.Itinerary do
+defmodule JourniPlan.Itineraries.Projections.Itinerary do
   use Ecto.Schema
   import Ecto.Changeset
+
+  @primary_key {:uuid, :binary_id, autogenerate: false}
+  @derive {Phoenix.Param, key: :uuid}
 
   schema "itineraries" do
     field :description, :string
@@ -13,6 +16,5 @@ defmodule JourniPlan.Itineraries.Itinerary do
   def changeset(itinerary, attrs) do
     itinerary
     |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
   end
 end

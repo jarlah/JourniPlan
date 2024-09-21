@@ -21,7 +21,7 @@ config :journi_plan, JourniPlan.EventStore,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "journi_plan_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "journi_plan_eventstore_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 

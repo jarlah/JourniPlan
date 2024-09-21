@@ -62,7 +62,8 @@ defmodule JourniPlan.MixProject do
       {:bandit, "~> 1.5"},
       {:commanded, "~> 1.4"},
       {:commanded_eventstore_adapter, "~> 1.4"},
-      {:commanded_ecto_projections, "~> 1.4"}
+      {:commanded_ecto_projections, "~> 1.4"},
+      {:exconstructor, "~> 1.2"}
     ]
   end
 

@@ -15,9 +15,7 @@ config :journi_plan, JourniPlan.EventStore,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "journi_plan_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
+  database: "journi_plan_eventstore_dev",
   pool_size: 10
 
 # For development, we disable any cache and enable

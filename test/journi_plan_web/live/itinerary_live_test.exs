@@ -2,19 +2,24 @@ defmodule JourniPlanWeb.ItineraryLiveTest do
   use JourniPlanWeb.ConnCase
 
   import Phoenix.LiveViewTest
+  alias JourniPlan.Accounts
   import JourniPlan.ItinerariesFixtures
 
   @create_attrs %{description: "some description", name: "some name"}
   @update_attrs %{description: "some updated description", name: "some updated name"}
   @invalid_attrs %{description: nil, name: nil}
 
-  defp create_itinerary(_) do
-    itinerary = itinerary_fixture()
-    %{itinerary: itinerary}
+  setup do
+    {:ok, user} =
+      %{email: "test@example.com", password: "passwordpassword123"}
+      |> Accounts.register_user()
+
+    itinerary = itinerary_fixture(%{user_id: user.id})
+
+    {:ok, conn: log_in_user(build_conn(), user), user: user, itinerary: itinerary}
   end
 
   describe "Index" do
-    setup [:create_itinerary]
 
     test "lists all itineraries", %{conn: conn, itinerary: itinerary} do
       {:ok, _index_live, html} = live(conn, ~p"/itineraries")
@@ -78,7 +83,6 @@ defmodule JourniPlanWeb.ItineraryLiveTest do
   end
 
   describe "Show" do
-    setup [:create_itinerary]
 
     test "displays itinerary", %{conn: conn, itinerary: itinerary} do
       {:ok, _show_live, html} = live(conn, ~p"/itineraries/#{itinerary}")

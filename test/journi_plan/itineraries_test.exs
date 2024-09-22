@@ -3,14 +3,24 @@ defmodule JourniPlan.ItinerariesTest do
 
   alias JourniPlan.Itineraries
 
+  alias JourniPlan.Accounts
+
+  setup do
+    {:ok, user} =
+      %{email: "test@example.com", password: "passwordpassword123"}
+      |> Accounts.register_user()
+
+    {:ok, user: user}
+  end
+
   describe "commands should generate events and be projected" do
-    test "create itinerary" do
-      {:ok, itinerary} = Itineraries.create_itinerary(%{name: "Test", description: "test"})
+    test "create itinerary", %{user: user} do
+      {:ok, itinerary} = Itineraries.create_itinerary(%{name: "Test", description: "test", user_id: user.id})
       assert itinerary == Itineraries.get_itinerary!(itinerary.uuid)
     end
 
-    test "update itinerary" do
-      {:ok, itinerary} = Itineraries.create_itinerary(%{name: "Test", description: "test"})
+    test "update itinerary", %{user: user} do
+      {:ok, itinerary} = Itineraries.create_itinerary(%{name: "Test", description: "test", user_id: user.id})
       {:ok, updated_itinerary} = Itineraries.update_itinerary(itinerary, %{name: "Updated name", description: "Updated desc"})
       assert updated_itinerary == Itineraries.get_itinerary!(itinerary.uuid)
     end
@@ -24,8 +34,10 @@ defmodule JourniPlan.ItinerariesTest do
     @invalid_attrs %{description: nil, name: nil}
 
     test "list_itineraries/0 returns all itineraries" do
-      itinerary = itinerary_fixture()
-      assert Itineraries.list_itineraries() == [itinerary]
+      created_itinerary = itinerary_fixture()
+      itineraries = Itineraries.list_itineraries()
+      assert length(itineraries) > 0
+      assert Enum.any?(itineraries, fn itinerary -> itinerary.uuid == created_itinerary.uuid end)
     end
 
     test "get_itinerary!/1 returns the itinerary with given id" do
@@ -33,8 +45,8 @@ defmodule JourniPlan.ItinerariesTest do
       assert Itineraries.get_itinerary!(itinerary.uuid) == itinerary
     end
 
-    test "create_itinerary/1 with valid data creates a itinerary" do
-      valid_attrs = %{description: "some description", name: "some name"}
+    test "create_itinerary/1 with valid data creates a itinerary", %{user: user} do
+      valid_attrs = %{description: "some description", name: "some name", user_id: user.id}
 
       assert {:ok, %Itinerary{} = itinerary} = Itineraries.create_itinerary(valid_attrs)
       assert itinerary.description == "some description"

@@ -29,7 +29,7 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
       end_time: end_time,
       itinerary_id: itinerary_id,
       user_id: created.user_id
-    } |> IO.inspect())
+    })
   end)
 
   project(%ActivityNameUpdated{uuid: uuid, name: name}, _, fn multi ->

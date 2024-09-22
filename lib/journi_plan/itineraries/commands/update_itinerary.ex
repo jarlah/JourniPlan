@@ -7,13 +7,13 @@ defmodule JourniPlan.Itineraries.Commands.UpdateItinerary do
 
   use ExConstructor
 
-  @types %{uuid: :string, name: :string, description: :string}
+  @types %{name: :string, description: :string}
 
   @doc false
   def changeset(command, params \\ %{}) do
     {command, @types}
-    |> Ecto.Changeset.cast(params, [:uuid, :name, :description])
-    |> Ecto.Changeset.validate_required([:uuid, :name, :description])
+    |> Ecto.Changeset.cast(params, [:name, :description])
+    |> Ecto.Changeset.validate_required([:name, :description])
   end
 
   def assign_uuid(%__MODULE__{} = update, uuid) do

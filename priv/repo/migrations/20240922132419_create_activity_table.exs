@@ -8,7 +8,7 @@ defmodule JourniPlan.Repo.Migrations.CreateActivityTable do
       add :description, :string
       add :start_time, :utc_datetime
       add :end_time, :utc_datetime
-      add :itinerary_uuid, references(:itineraries, type: :uuid, column: :uuid)
+      add :itinerary_id, references(:itineraries, type: :uuid, column: :uuid)
       add :user_id, references(:users)
 
       timestamps(type: :naive_datetime_usec)

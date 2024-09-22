@@ -9,8 +9,8 @@ defmodule JourniPlan.Itineraries.Projections.JournalEntry do
     field :body, :string
     field :entry_date, :utc_datetime
     field :title, :string
-    belongs_to :activity, JourniPlan.Activities.Projections.Activity, references: :uuid
-    belongs_to :itinerary, JourniPlan.Itineraries.Projections.Itinerary, references: :uuid
+    belongs_to :activity, JourniPlan.Activities.Projections.Activity, references: :uuid, type: :string
+    belongs_to :itinerary, JourniPlan.Itineraries.Projections.Itinerary, references: :uuid, type: :string
     belongs_to :user, JourniPlan.Accounts.User
 
     timestamps(type: :utc_datetime)

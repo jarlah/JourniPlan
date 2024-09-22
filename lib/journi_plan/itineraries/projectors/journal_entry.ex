@@ -15,14 +15,18 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
   alias JourniPlan.Itineraries.Projections.JournalEntry
 
   project(%JournalEntryCreated{} = created, _, fn multi ->
+    {:ok, entry_date, _} = DateTime.from_iso8601(created.entry_date)
+    itinerary_id = cast_uuid!(created.itinerary_id)
+    activity_id = cast_uuid!(created.activity_id)
+
     Ecto.Multi.insert(multi, :journal_entry, %JournalEntry{
       uuid: created.uuid,
       title: created.title,
       body: created.body,
       user_id: created.user_id,
-      entry_date: created.entry_date,
-      itinerary_id: created.itinerary_id,
-      activity_id: created.activity_id
+      entry_date: entry_date,
+      itinerary_id: itinerary_id,
+      activity_id: activity_id
     })
   end)
 
@@ -47,5 +51,10 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
     end
   end)
 
-
+  defp cast_uuid!(uuid) do
+    case Ecto.UUID.dump(uuid) do
+      {:ok, casted_uuid} -> casted_uuid
+      :error -> raise ArgumentError, "Invalid UUID: #{uuid}"
+    end
+  end
 end

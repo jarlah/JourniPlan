@@ -42,6 +42,18 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
     [title_command, body_command] |> Enum.filter(&Function.identity/1)
   end
 
+  def apply(%JournalEntry{} = journal_entry, %JournalEntryCreated{} = event) do
+    %JournalEntry{
+      journal_entry |
+      title: event.title,
+      body: event.body,
+      entry_date: event.entry_date,
+      itinerary_id: event.itinerary_id,
+      activity_id: event.activity_id,
+      user_id: event.user_id
+    }
+  end
+
   def apply(%JournalEntry{} = journal_entry, %JournalEntryTitleUpdated{} = event) do
     %JournalEntry{journal_entry | title: event.title}
   end

@@ -6,7 +6,6 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
     :start_time,
     :end_time,
     :itinerary_id,
-    :activity_id,
     :user_id
   ]
 
@@ -30,7 +29,6 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
       start_time: event.start_time,
       end_time: event.end_time,
       itinerary_id: event.itinerary_id,
-      activity_id: event.activity_id,
       user_id: event.user_id
     }
   end
@@ -68,8 +66,27 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
         start_time: event.start_time,
         end_time: event.end_time,
         itinerary_id: event.itinerary_id,
-        activity_id: event.activity_id,
         user_id: event.user_id
     }
+  end
+
+  def apply(%Activity{} = activity, %ActivityNameUpdated{} = event) do
+    %Activity{activity | name: event.name}
+  end
+
+  def apply(%Activity{} = activity, %ActivityDescriptionUpdated{} = event) do
+    %Activity{activity | description: event.description}
+  end
+
+  def apply(%Activity{} = activity, %ActivityStartTimeUpdated{} = event) do
+    %Activity{activity | start_time: event.start_time}
+  end
+
+  def apply(%Activity{} = activity, %ActivityEndTimeUpdated{} = event) do
+    %Activity{activity | end_time: event.end_time}
+  end
+
+  def apply(%Activity{}, %ActivityDeleted{}) do
+    nil
   end
 end

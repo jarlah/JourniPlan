@@ -10,7 +10,9 @@ defmodule JourniPlan.Itineraries.Supervisor do
   def init(_arg) do
     Supervisor.init(
       [
-        Itineraries.Projectors.Itinerary
+        Itineraries.Projectors.Itinerary,
+        Itineraries.Projectors.Activity,
+        Itineraries.Projectors.JournalEntry
       ],
       strategy: :one_for_one
     )

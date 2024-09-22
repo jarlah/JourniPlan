@@ -3,6 +3,7 @@ defmodule JourniPlan.Itineraries.Events.ItineraryCreated do
   defstruct [
     :uuid,
     :name,
-    :description
+    :description,
+    :user_id
   ]
 end

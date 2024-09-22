@@ -82,7 +82,10 @@ defmodule JourniPlanWeb.ItineraryLive.FormComponent do
   end
 
   defp save_itinerary(socket, :new, itinerary_params) do
-    case Itineraries.create_itinerary(itinerary_params) do
+    user_id = socket.assigns.current_user.id
+    updated_params = Map.put(itinerary_params, "user_id", user_id)
+
+    case Itineraries.create_itinerary(updated_params) do
       {:ok, itinerary} ->
         notify_parent({:saved, itinerary})
 

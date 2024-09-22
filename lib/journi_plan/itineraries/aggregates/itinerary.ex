@@ -18,7 +18,8 @@ defmodule JourniPlan.Itineraries.Aggregates.Itinerary do
     %ItineraryCreated{
       uuid: create.uuid,
       name: create.name,
-      description: create.description
+      description: create.description,
+      user_id: create.user_id
     }
   end
 

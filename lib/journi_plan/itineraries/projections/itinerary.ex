@@ -8,6 +8,7 @@ defmodule JourniPlan.Itineraries.Projections.Itinerary do
   schema "itineraries" do
     field :description, :string
     field :name, :string
+    belongs_to :user, JourniPlan.Accounts.User
 
     timestamps(type: :utc_datetime)
   end

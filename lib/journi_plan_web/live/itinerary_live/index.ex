@@ -6,9 +6,12 @@ defmodule JourniPlanWeb.ItineraryLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    current_user = socket.assigns.current_user
+
     {
       :ok,
       socket
+      |> assign(:current_user, current_user)
       |> stream_configure(:itineraries, dom_id: & &1.uuid)
       |> stream(:itineraries, Itineraries.list_itineraries())
     }

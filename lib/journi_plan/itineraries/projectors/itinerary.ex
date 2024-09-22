@@ -18,7 +18,8 @@ defmodule JourniPlan.Itineraries.Projectors.Itinerary do
     Ecto.Multi.insert(multi, :todo, %Itinerary{
       uuid: created.uuid,
       name: created.name,
-      description: created.description
+      description: created.description,
+      user_id: created.user_id
     })
   end)
 

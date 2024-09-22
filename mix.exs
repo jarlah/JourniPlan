@@ -63,7 +63,8 @@ defmodule JourniPlan.MixProject do
       {:commanded, "~> 1.4"},
       {:commanded_eventstore_adapter, "~> 1.4"},
       {:commanded_ecto_projections, "~> 1.4"},
-      {:exconstructor, "~> 1.2"}
+      {:exconstructor, "~> 1.2"},
+      {:testcontainers, "~> 1.8.4", only: [:dev, :test]}
     ]
   end
 
@@ -76,10 +77,10 @@ defmodule JourniPlan.MixProject do
   defp aliases do
     [
       setup: [
-	"deps.get",
-	"ecto.setup",
-	# "assets.setup",
-	"assets.build"
+        "deps.get",
+        "reset",
+        "assets.setup",
+        "assets.build"
       ],
       "event_store.init": ["event_store.drop", "event_store.create", "event_store.init"],
       "ecto.init": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],

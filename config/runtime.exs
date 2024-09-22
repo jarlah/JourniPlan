@@ -36,6 +36,12 @@ if config_env() == :prod do
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 
+  config :journi_plan, JourniPlan.EventStore,
+    # ssl: true,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    socket_options: maybe_ipv6
+
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
@@ -65,7 +71,26 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
-  # ## SSL Support
+end
+
+if config_env() == :test && System.get_env("APP_DATABASE_URL") do
+  app_database_url = System.get_env("APP_DATABASE_URL") |> IO.inspect()
+  commanded_database_url = System.get_env("COMMANDED_DATABASE_URL") |> IO.inspect()
+
+  config :journi_plan, JourniPlan.Repo,
+    url: app_database_url,
+    pool: Ecto.Adapters.SQL.Sandbox,
+    pool_size: System.schedulers_online() * 2,
+    database: app_database_url |> URI.parse() |> Map.get(:path) |> String.replace_leading("/", "")
+
+  config :journi_plan, JourniPlan.EventStore,
+    url: commanded_database_url,
+    pool: Ecto.Adapters.SQL.Sandbox,
+    pool_size: System.schedulers_online() * 2,
+    database: commanded_database_url |> URI.parse() |> Map.get(:path) |> String.replace_leading("/", "")
+end
+
+# ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
@@ -114,4 +139,3 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
-end

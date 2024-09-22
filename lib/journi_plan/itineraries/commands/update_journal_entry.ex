@@ -20,4 +20,8 @@ defmodule JourniPlan.Itineraries.Commands.UpdateJournalEntry do
     |> Ecto.Changeset.cast(params, [:title, :body, :entry_date])
     |> Ecto.Changeset.validate_required([:title, :body, :entry_date])
   end
+
+  def assign_uuid(%__MODULE__{} = update, uuid) do
+    %__MODULE__{update | uuid: uuid}
+  end
 end

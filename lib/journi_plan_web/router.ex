@@ -68,6 +68,13 @@ defmodule JourniPlanWeb.Router do
       on_mount: [{JourniPlanWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/itineraries", ItineraryLive.Index, :index
+      live "/itineraries/new", ItineraryLive.Index, :new
+      live "/itineraries/:id/edit", ItineraryLive.Index, :edit
+
+      live "/itineraries/:id", ItineraryLive.Show, :show
+      live "/itineraries/:id/show/edit", ItineraryLive.Show, :edit
     end
   end
 
@@ -80,13 +87,6 @@ defmodule JourniPlanWeb.Router do
       on_mount: [{JourniPlanWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
-
-      live "/itineraries", ItineraryLive.Index, :index
-      live "/itineraries/new", ItineraryLive.Index, :new
-      live "/itineraries/:id/edit", ItineraryLive.Index, :edit
-
-      live "/itineraries/:id", ItineraryLive.Show, :show
-      live "/itineraries/:id/show/edit", ItineraryLive.Show, :edit
     end
   end
 end

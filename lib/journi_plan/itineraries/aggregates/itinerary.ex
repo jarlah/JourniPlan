@@ -2,7 +2,8 @@ defmodule JourniPlan.Itineraries.Aggregates.Itinerary do
   defstruct [
     :uuid,
     :name,
-    :description
+    :description,
+    :user_id
   ]
 
   alias JourniPlan.Itineraries.Aggregates.Itinerary

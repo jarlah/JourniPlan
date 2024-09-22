@@ -80,6 +80,7 @@ erDiagram
 
 To start your Phoenix server:
 
+  * Run `mix setup`
   * Run `docker run --name some-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgre` (testcontainers for elixir doesnt have support for multiple repos yet ...)
   * Run `mix reset` to install and setup dependencies
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`

@@ -10,6 +10,11 @@ defmodule JourniPlan.Itineraries.Commands.CreateJournalEntry do
   ]
 
   use ExConstructor
+  alias Ecto.Changeset
+  alias JourniPlan.Itineraries.Projections.Itinerary
+  alias JourniPlan.Itineraries.Projections.Activity
+  alias JourniPlan.Accounts.User
+  import JourniPlan.Utils.Changeset
 
   @types %{
     title: :string,
@@ -23,8 +28,11 @@ defmodule JourniPlan.Itineraries.Commands.CreateJournalEntry do
   @doc false
   def changeset(command, params \\ %{}) do
     {command, @types}
-    |> Ecto.Changeset.cast(params, [:title, :body, :entry_date, :activity_id, :itinerary_id, :user_id])
-    |> Ecto.Changeset.validate_required([:title, :body, :entry_date, :itinerary_id, :user_id])
+    |> Changeset.cast(params, [:title, :body, :entry_date, :activity_id, :itinerary_id, :user_id])
+    |> Changeset.validate_required([:title, :body, :entry_date, :itinerary_id, :user_id])
+    |> foreign_key_exists(Activity, :uuid, :activity_id)
+    |> foreign_key_exists(Itinerary, :uuid, :itinerary_id)
+    |> foreign_key_exists(User, :id, :user_id)
   end
 
   def assign_uuid(%__MODULE__{} = create, uuid) do

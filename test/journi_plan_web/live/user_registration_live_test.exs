@@ -51,8 +51,8 @@ defmodule JourniPlanWeb.UserRegistrationLiveTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
       assert response =~ email
-      assert response =~ "Settings"
-      assert response =~ "Log out"
+      assert response =~ "Pricing"
+      assert response =~ "Features"
     end
 
     test "renders errors for duplicated email", %{conn: conn} do

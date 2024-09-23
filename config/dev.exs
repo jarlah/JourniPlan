@@ -2,9 +2,10 @@ import Config
 
 # Configure your database
 config :journi_plan, JourniPlan.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  username: System.get_env("POSTGRES_USER") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  port: System.get_env("POSTGRES_PORT") || "5432",
   database: "journi_plan_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
@@ -12,9 +13,10 @@ config :journi_plan, JourniPlan.Repo,
 
 config :journi_plan, JourniPlan.EventStore,
   serializer: Commanded.Serialization.JsonSerializer,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  username: System.get_env("POSTGRES_USER") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  port: System.get_env("POSTGRES_PORT") || "5432",
   database: "journi_plan_eventstore_dev",
   pool_size: 10
 

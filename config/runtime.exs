@@ -71,26 +71,7 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
-end
-
-if config_env() == :test && System.get_env("APP_DATABASE_URL") do
-  app_database_url = System.get_env("APP_DATABASE_URL") |> IO.inspect()
-  commanded_database_url = System.get_env("COMMANDED_DATABASE_URL") |> IO.inspect()
-
-  config :journi_plan, JourniPlan.Repo,
-    url: app_database_url,
-    pool: Ecto.Adapters.SQL.Sandbox,
-    pool_size: System.schedulers_online() * 2,
-    database: app_database_url |> URI.parse() |> Map.get(:path) |> String.replace_leading("/", "")
-
-  config :journi_plan, JourniPlan.EventStore,
-    url: commanded_database_url,
-    pool: Ecto.Adapters.SQL.Sandbox,
-    pool_size: System.schedulers_online() * 2,
-    database: commanded_database_url |> URI.parse() |> Map.get(:path) |> String.replace_leading("/", "")
-end
-
-# ## SSL Support
+  ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
@@ -139,3 +120,4 @@ end
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+end

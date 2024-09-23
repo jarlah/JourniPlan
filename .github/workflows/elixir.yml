@@ -36,4 +36,4 @@ jobs:
     - name: Install dependencies
       run: mix deps.get
     - name: Run tests
-      run: mix testcontainers_test
+      run: mix testcontainers.test

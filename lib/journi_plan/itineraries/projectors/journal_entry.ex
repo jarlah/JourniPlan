@@ -7,6 +7,8 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
 
   alias JourniPlan.Repo
 
+  import  JourniPlan.Utils.UUID
+
   alias JourniPlan.Itineraries.Events.JournalEntryCreated
   alias JourniPlan.Itineraries.Events.JournalEntryTitleUpdated
   alias JourniPlan.Itineraries.Events.JournalEntryBodyUpdated
@@ -50,11 +52,4 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
       journal_entry -> Ecto.Multi.delete(multi, :journal_entry, journal_entry)
     end
   end)
-
-  defp cast_uuid!(uuid) do
-    case Ecto.UUID.dump(uuid) do
-      {:ok, casted_uuid} -> casted_uuid
-      :error -> raise ArgumentError, "Invalid UUID: #{uuid}"
-    end
-  end
 end

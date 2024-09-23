@@ -26,6 +26,22 @@ defmodule JourniPlan.Itineraries do
     Repo.get_by!(Itinerary, uuid: uuid)
   end
 
+  def change_itinerary(itinerary, action, params \\ nil)
+
+  def change_itinerary(%Itinerary{} = itinerary, :edit, params) do
+    UpdateItinerary.changeset(
+      %UpdateItinerary{uuid: itinerary.uuid},
+      params || Map.from_struct(itinerary)
+    )
+  end
+
+  def change_itinerary(_itinerary, :new, params) do
+    CreateItinerary.changeset(
+      %CreateItinerary{},
+      params || %{}
+    )
+  end
+
   def create_itinerary(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
 
@@ -150,8 +166,28 @@ defmodule JourniPlan.Itineraries do
     end
   end
 
+  def list_journal_entries do
+    Repo.all(JournalEntry)
+  end
+
   def get_journal_entry!(uuid) do
     Repo.get_by!(JournalEntry, uuid: uuid)
+  end
+
+  def change_journal_entry(journal_entry, action, params \\ nil)
+
+  def change_journal_entry(%JournalEntry{} = journal_entry, :edit, params) do
+    UpdateJournalEntry.changeset(
+      %UpdateJournalEntry{uuid: journal_entry.uuid},
+      params || Map.from_struct(journal_entry)
+    )
+  end
+
+  def change_journal_entry(_journal_entry, :new, params) do
+    CreateJournalEntry.changeset(
+      %CreateJournalEntry{},
+      params || %{}
+    )
   end
 
   def create_journal_entry(attrs \\ %{}) do

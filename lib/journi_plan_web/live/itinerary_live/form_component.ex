@@ -2,8 +2,6 @@ defmodule JourniPlanWeb.ItineraryLive.FormComponent do
   use JourniPlanWeb, :live_component
 
   alias JourniPlan.Itineraries
-  alias JourniPlan.Itineraries.Commands.CreateItinerary
-  alias JourniPlan.Itineraries.Commands.UpdateItinerary
 
   @impl true
   def render(assigns) do
@@ -32,33 +30,16 @@ defmodule JourniPlanWeb.ItineraryLive.FormComponent do
   end
 
   @impl true
-  def update(%{itinerary: _itinerary, action: :new} = assigns, socket) do
-    changeset = CreateItinerary.changeset(%CreateItinerary{}, %{})
-
+  def update(%{itinerary: itinerary, action: action} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:form, to_form(changeset, as: "itinerary"))}
-  end
-
-  @impl true
-  def update(%{itinerary: itinerary, action: :edit} = assigns, socket) do
-    changeset = UpdateItinerary.changeset(%UpdateItinerary{uuid: itinerary.uuid}, Map.from_struct(itinerary))
-
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:form, to_form(changeset, as: "itinerary"))}
+     |> assign(:form, to_form(Itineraries.change_itinerary(itinerary, action), as: "itinerary"))}
   end
 
   @impl true
   def handle_event("validate", %{"itinerary" => itinerary_params}, socket) do
-    changeset =
-      case socket.assigns.action do
-        :new -> CreateItinerary.changeset(%CreateItinerary{}, itinerary_params)
-        :edit -> UpdateItinerary.changeset(%UpdateItinerary{uuid: socket.assigns.itinerary.uuid}, itinerary_params)
-      end
-
+    changeset = Itineraries.change_itinerary(socket.assigns.itinerary, socket.assigns.action, itinerary_params)
     {:noreply, assign(socket, form: to_form(changeset, action: :validate, as: "itinerary"))}
   end
 

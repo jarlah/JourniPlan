@@ -1,3 +1,51 @@
+<.flash_group flash={@flash} />
+
+<header class="header">
+  <nav class="nav-container">
+    <div class="logo">JourniPlan</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+
+      <%= if @current_user do %>
+        <!-- Logged-in User Info -->
+        <li class="relative group">
+          <!-- User email trigger -->
+          <span class="cursor-pointer text-[0.8125rem] leading-6 text-zinc-900 group-hover:text-gray-600">
+            <%= @current_user.email %>
+          </span>
+          <!-- Dropdown menu -->
+          <ul class="absolute hidden group-hover:block bg-white border rounded-lg shadow-md mt-2 w-48">
+            <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
+              <.link href={~p"/users/settings"} class="nav-links-a">
+                Profile
+              </.link>
+            </li>
+            <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
+              <.link href={~p"/users/log_out"} method="delete" class="nav-links-a">
+                Log out
+              </.link>
+            </li>
+          </ul>
+        </li>
+      <% else %>
+        <!-- Guest User Options -->
+        <li>
+          <.link href={~p"/users/register"} class="nav-links-a">
+            Register
+          </.link>
+        </li>
+        <li>
+          <.link href={~p"/users/log_in"} class="nav-links-a">
+            Log in
+          </.link>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
 <!DOCTYPE html>
 <html lang="en" class="[scrollbar-gutter:stable]">
   <head>
@@ -15,3 +63,15 @@
     <%= @inner_content %>
   </body>
 </html>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 JourniPlan. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/terms-of-service">Terms of Service</a></li>
+      <li><a href="https://twitter.com/journi_plan">Twitter</a></li>
+      <li><a href="https://facebook.com/journi_plan">Facebook</a></li>
+    </ul>
+  </div>
+</footer>

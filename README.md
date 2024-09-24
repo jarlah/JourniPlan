@@ -80,6 +80,7 @@ erDiagram
 
 To start your Phoenix server:
 
+  * Install docker
   * Run `docker run --name some-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`
   * Run `mix setup`
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
@@ -87,6 +88,19 @@ To start your Phoenix server:
 Now you can visit [`localhost:4000/itineraries`](http://localhost:4000/itineraries) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+
+## Run tests
+
+To run tests with testcontainers:
+
+  * Install docker
+  * Run `mix testcontainers.test`
+
+or via self managed postgres:
+
+  * Install docker
+  * Run `docker run --name some-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`
+  * Run `mix test`
 
 ## Learn more
 

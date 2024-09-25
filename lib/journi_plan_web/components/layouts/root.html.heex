@@ -19,7 +19,7 @@
             <%= @current_user.email %>
           </span>
           <!-- Dropdown menu -->
-          <ul class="absolute hidden group-hover:block bg-white border rounded-lg shadow-md mt-2 w-48">
+          <ul class="absolute hidden group-hover:block bg-white border rounded-lg group-focus-within:block shadow-md w-48 group-hover:pointer-events-auto">
             <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
               <.link href={~p"/users/settings"} class="nav-links-a">
                 Profile

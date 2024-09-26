@@ -64,7 +64,7 @@ defmodule JourniPlan.MixProject do
       {:commanded_eventstore_adapter, "~> 1.4"},
       {:commanded_ecto_projections, "~> 1.4"},
       {:exconstructor, "~> 1.2"},
-      {:testcontainers, "~> 1.8.4", only: [:dev, :test]}
+      {:testcontainers, "~> 1.10.1", only: [:dev, :test]}
     ]
   end
 

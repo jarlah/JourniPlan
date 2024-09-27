@@ -24,6 +24,9 @@ defmodule JourniPlanWeb.Router do
 
   scope "/", JourniPlanWeb do
     pipe_through :browser
+
+    get "/", PageController, :home
+
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -61,8 +64,6 @@ defmodule JourniPlanWeb.Router do
 
   scope "/", JourniPlanWeb do
     pipe_through [:browser, :require_authenticated_user]
-
-    get "/", PageController, :home
 
     live_session :require_authenticated_user,
       on_mount: [{JourniPlanWeb.UserAuth, :ensure_authenticated}] do

@@ -4,57 +4,71 @@
       Your Itineraries
     </h1>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <%= for itinerary <- @itineraries do %>
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div class="px-6 py-4">
-            <h2 class="text-xl font-semibold text-gray-900">
-              <%= itinerary.name %>
-            </h2>
-            <p class="text-gray-700 text-sm mt-2">
-              <%= itinerary.description || "No description available" %>
-            </p>
-          </div>
+    <%= if @current_user do %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <%= for itinerary <- @itineraries do %>
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="px-6 py-4">
+              <h2 class="text-xl font-semibold text-gray-900">
+                <%= itinerary.name %>
+              </h2>
+              <p class="text-gray-700 text-sm mt-2">
+                <%= itinerary.description || "No description available" %>
+              </p>
+            </div>
 
-          <!-- Latest Activities -->
-          <div class="px-6 py-4 bg-gray-50">
-            <h3 class="text-lg font-medium text-gray-900">Latest Activities</h3>
-            <ul class="mt-2 text-sm text-gray-700">
-              <%= if Enum.empty?(itinerary.activities) do %>
-                <li>No recent activities.</li>
-              <% else %>
-                <%= for activity <- itinerary.activities do %>
-                  <li>
-                    <%= activity.name %> (<%= activity.start_time %>)
-                  </li>
+            <!-- Latest Activities -->
+            <div class="px-6 py-4 bg-gray-50">
+              <h3 class="text-lg font-medium text-gray-900">Latest Activities</h3>
+              <ul class="mt-2 text-sm text-gray-700">
+                <%= if Enum.empty?(itinerary.activities) do %>
+                  <li>No recent activities.</li>
+                <% else %>
+                  <%= for activity <- itinerary.activities do %>
+                    <li>
+                      <%= activity.name %> (<%= activity.start_time %>)
+                    </li>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          <!-- Latest Journal Entries -->
-          <div class="px-6 py-4 bg-gray-50">
-            <h3 class="text-lg font-medium text-gray-900">Latest Journal Entries</h3>
-            <ul class="mt-2 text-sm text-gray-700">
-              <%= if Enum.empty?(itinerary.journal_entries) do %>
-                <li>No recent journal entries.</li>
-              <% else %>
-                <%= for entry <- itinerary.journal_entries do %>
-                  <li>
-                    <%= entry.title %> (<%= entry.inserted_at %>)
-                  </li>
+            <!-- Latest Journal Entries -->
+            <div class="px-6 py-4 bg-gray-50">
+              <h3 class="text-lg font-medium text-gray-900">Latest Journal Entries</h3>
+              <ul class="mt-2 text-sm text-gray-700">
+                <%= if Enum.empty?(itinerary.journal_entries) do %>
+                  <li>No recent journal entries.</li>
+                <% else %>
+                  <%= for entry <- itinerary.journal_entries do %>
+                    <li>
+                      <%= entry.title %> (<%= entry.inserted_at %>)
+                    </li>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          <div class="px-6 py-4 bg-gray-100">
-            <a href={~p"/itineraries/#{itinerary.uuid}"} class="text-indigo-600 hover:text-indigo-900 font-medium">
-              View Details
-            </a>
+            <div class="px-6 py-4 bg-gray-100">
+              <a href={~p"/itineraries/#{itinerary.uuid}"} class="text-indigo-600 hover:text-indigo-900 font-medium">
+                View Details
+              </a>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto text-center">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">
+          Welcome to JourniPlan!
+        </h2>
+        <p class="text-gray-700 mb-4">
+          Please log in to view your itineraries and make the most of your travel planning.
+        </p>
+        <a href={~p"/users/log_in"} class="inline-block bg-indigo-600 text-white font-medium py-2 px-4 rounded hover:bg-indigo-700">
+          Log In
+        </a>
+      </div>
+    <% end %>
   </div>
 </div>

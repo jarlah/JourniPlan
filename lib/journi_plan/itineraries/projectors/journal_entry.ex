@@ -18,8 +18,8 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
 
   project(%JournalEntryCreated{} = created, _, fn multi ->
     {:ok, entry_date, _} = DateTime.from_iso8601(created.entry_date)
-    itinerary_id = cast_uuid!(created.itinerary_id)
-    activity_id = cast_uuid!(created.activity_id)
+    itinerary_uuid = cast_uuid!(created.itinerary_uuid)
+    activity_uuid = cast_uuid!(created.activity_uuid)
 
     Ecto.Multi.insert(multi, :journal_entry, %JournalEntry{
       uuid: created.uuid,
@@ -27,8 +27,8 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
       body: created.body,
       user_id: created.user_id,
       entry_date: entry_date,
-      itinerary_id: itinerary_id,
-      activity_id: activity_id
+      itinerary_uuid: itinerary_uuid,
+      activity_uuid: activity_uuid
     })
   end)
 

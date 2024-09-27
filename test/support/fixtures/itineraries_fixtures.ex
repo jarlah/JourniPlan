@@ -35,7 +35,7 @@ defmodule JourniPlan.ItinerariesFixtures do
         title: "some title",
         user_id: user_id,
         entry_date: ~U[2021-01-01 00:00:00Z],
-        itinerary_id: itinerary_id
+        itinerary_uuid: itinerary_id
       })
       |> JourniPlan.Itineraries.create_journal_entry()
 

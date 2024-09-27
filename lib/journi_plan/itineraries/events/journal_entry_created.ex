@@ -5,8 +5,8 @@ defmodule JourniPlan.Itineraries.Events.JournalEntryCreated do
     :title,
     :body,
     :entry_date,
-    :itinerary_id,
-    :activity_id,
+    :itinerary_uuid,
+    :activity_uuid,
     :user_id
   ]
 end

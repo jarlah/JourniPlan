@@ -4,8 +4,8 @@ defmodule JourniPlan.Repo.Migrations.CreateJournalEntryTable do
   def change do
     create table(:journal_entries, primary_key: false) do
       add :uuid, :uuid, primary_key: true
-      add :itinerary_id, references(:itineraries, type: :uuid, column: :uuid)
-      add :activity_id, references(:activities, type: :uuid, column: :uuid)
+      add :itinerary_uuid, references(:itineraries, type: :uuid, column: :uuid)
+      add :activity_uuid, references(:activities, type: :uuid, column: :uuid)
       add :user_id, references(:users)
       add :title, :string
       add :body, :string

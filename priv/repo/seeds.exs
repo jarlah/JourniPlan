@@ -23,7 +23,7 @@
   description: "This is my first activity",
   start_time: ~U[2024-09-22 12:34:56Z],
   end_time: ~U[2024-09-26 15:00:56Z],
-  itinerary_id: itinerary.uuid,
+  itinerary_uuid: itinerary.uuid,
   user_id: user.id
 })
 
@@ -31,7 +31,7 @@
   title: "My first journal entry",
   body: "This is my first journal entry",
   entry_date: ~U[2024-09-24 12:34:56Z],
-  itinerary_id: itinerary.uuid,
-  activity_id: activity.uuid,
+  itinerary_uuid: itinerary.uuid,
+  activity_uuid: activity.uuid,
   user_id: user.id
 })

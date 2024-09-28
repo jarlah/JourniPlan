@@ -28,6 +28,13 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
+  database_events_url =
+    System.get_env("DATABASE_EVENTS_URL") ||
+      raise """
+      environment variable DATABASE_EVENTS_URL is missing.
+      For example: ecto://USER:PASS@HOST/DATABASE
+      """
+
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :journi_plan, JourniPlan.Repo,
@@ -36,7 +43,7 @@ if config_env() == :prod do
     socket_options: maybe_ipv6
 
   database_url_without_query_string =
-      database_url
+      database_events_url
       |> URI.new!()
       |> then(&%URI{&1 | query: nil, path: "#{&1.path}_events"})
       |> URI.to_string()

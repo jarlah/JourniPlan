@@ -31,14 +31,18 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :journi_plan, JourniPlan.Repo,
-    # ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 
+  database_url_without_query_string =
+      database_url
+      |> URI.new!()
+      |> then(&%URI{&1 | query: nil, path: "#{&1.path}_events"})
+      |> URI.to_string()
+
   config :journi_plan, JourniPlan.EventStore,
-    # ssl: true,
-    url: database_url,
+    url: database_url_without_query_string,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 

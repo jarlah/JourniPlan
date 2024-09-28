@@ -13,7 +13,7 @@ defmodule JourniPlanWeb.ItineraryLive.Index do
       socket
       |> assign(:current_user, current_user)
       |> stream_configure(:itineraries, dom_id: & &1.uuid)
-      |> stream(:itineraries, Itineraries.list_itineraries())
+      |> stream(:itineraries, Itineraries.list_user_itineraries(current_user.id))
     }
   end
 

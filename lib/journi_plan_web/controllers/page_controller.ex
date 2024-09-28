@@ -6,7 +6,7 @@ defmodule JourniPlanWeb.PageController do
 
   def home(conn, _params) do
     if current_user = conn.assigns[:current_user] do
-      itineraries = Itineraries.list_itineraries() |> Repo.preload([:journal_entries, :activities])
+      itineraries = Itineraries.list_user_itineraries(current_user.id) |> Repo.preload([:journal_entries, :activities])
       render(conn, :home, layout: false, itineraries: itineraries, current_user: current_user)
     else
       render(conn, :home, layout: false)

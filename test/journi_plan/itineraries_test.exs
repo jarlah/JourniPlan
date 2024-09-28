@@ -33,9 +33,9 @@ defmodule JourniPlan.ItinerariesTest do
 
     @invalid_attrs %{description: nil, name: nil}
 
-    test "list_itineraries/0 returns all itineraries" do
-      created_itinerary = itinerary_fixture()
-      itineraries = Itineraries.list_itineraries()
+    test "list_itineraries/0 returns all itineraries", %{user: user} do
+      created_itinerary = itinerary_fixture(%{user_id: user.id})
+      itineraries = Itineraries.list_user_itineraries(user.id)
       assert length(itineraries) > 0
       assert Enum.any?(itineraries, fn itinerary -> itinerary.uuid == created_itinerary.uuid end)
     end

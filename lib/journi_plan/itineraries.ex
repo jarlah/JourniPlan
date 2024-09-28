@@ -18,8 +18,9 @@ defmodule JourniPlan.Itineraries do
   alias JourniPlan.Itineraries.Projections.Activity
   alias JourniPlan.Itineraries.Projections.JournalEntry
 
-  def list_itineraries do
-    Repo.all(Itinerary)
+  def list_user_itineraries(user_id) do
+    from(i in Itinerary, where: i.user_id == ^user_id)
+    |> Repo.all()
   end
 
   def get_itinerary!(uuid) do

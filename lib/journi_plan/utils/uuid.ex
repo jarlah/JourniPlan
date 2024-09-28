@@ -3,7 +3,7 @@ defmodule JourniPlan.Utils.UUID do
     if uuid == nil do
       nil
     else
-      case Ecto.UUID.dump(uuid) do
+      case Ecto.UUID.cast(uuid) do
         {:ok, casted_uuid} -> casted_uuid
         :error -> raise ArgumentError, "Invalid UUID: #{uuid}"
       end

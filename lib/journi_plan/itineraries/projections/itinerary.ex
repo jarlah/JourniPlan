@@ -8,6 +8,9 @@ defmodule JourniPlan.Itineraries.Projections.Itinerary do
   schema "itineraries" do
     field :description, :string
     field :name, :string
+
+    has_many :activities, JourniPlan.Itineraries.Projections.Activity, foreign_key: :itinerary_uuid
+    has_many :journal_entries, JourniPlan.Itineraries.Projections.JournalEntry, foreign_key: :itinerary_uuid
     belongs_to :user, JourniPlan.Accounts.User
 
     timestamps(type: :utc_datetime)

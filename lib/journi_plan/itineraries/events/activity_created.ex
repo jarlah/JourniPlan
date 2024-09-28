@@ -6,7 +6,7 @@ defmodule JourniPlan.Itineraries.Events.ActivityCreated do
     :description,
     :start_time,
     :end_time,
-    :itinerary_id,
+    :itinerary_uuid,
     :user_id
   ]
 end

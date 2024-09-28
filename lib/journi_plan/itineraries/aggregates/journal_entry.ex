@@ -3,8 +3,8 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
     :uuid,
     :title,
     :body,
-    :itinerary_id,
-    :activity_id,
+    :itinerary_uuid,
+    :activity_uuid,
     :entry_date,
     :user_id
   ]
@@ -24,8 +24,8 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
       title: event.title,
       body: event.body,
       entry_date: event.entry_date,
-      itinerary_id: event.itinerary_id,
-      activity_id: event.activity_id,
+      itinerary_uuid: event.itinerary_uuid,
+      activity_uuid: event.activity_uuid,
       user_id: event.user_id
     }
   end
@@ -48,8 +48,8 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
       title: event.title,
       body: event.body,
       entry_date: event.entry_date,
-      itinerary_id: event.itinerary_id,
-      activity_id: event.activity_id,
+      itinerary_uuid: event.itinerary_uuid,
+      activity_uuid: event.activity_uuid,
       user_id: event.user_id
     }
   end

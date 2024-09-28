@@ -4,8 +4,8 @@ defmodule JourniPlan.Itineraries.Commands.CreateJournalEntry do
     :title,
     :body,
     :entry_date,
-    :activity_id,
-    :itinerary_id,
+    :activity_uuid,
+    :itinerary_uuid,
     :user_id
   ]
 
@@ -20,18 +20,18 @@ defmodule JourniPlan.Itineraries.Commands.CreateJournalEntry do
     title: :string,
     body: :string,
     entry_date: :utc_datetime,
-    activity_id: :binary_id,
-    itinerary_id: :binary_id,
+    activity_uuid: :binary_id,
+    itinerary_uuid: :binary_id,
     user_id: :integer
   }
 
   @doc false
   def changeset(command, params \\ %{}) do
     {command, @types}
-    |> Changeset.cast(params, [:title, :body, :entry_date, :activity_id, :itinerary_id, :user_id])
-    |> Changeset.validate_required([:title, :body, :entry_date, :itinerary_id, :user_id])
-    |> foreign_key_exists(Activity, :uuid, :activity_id)
-    |> foreign_key_exists(Itinerary, :uuid, :itinerary_id)
+    |> Changeset.cast(params, [:title, :body, :entry_date, :activity_uuid, :itinerary_uuid, :user_id])
+    |> Changeset.validate_required([:title, :body, :entry_date, :itinerary_uuid, :user_id])
+    |> foreign_key_exists(Activity, :uuid, :activity_uuid)
+    |> foreign_key_exists(Itinerary, :uuid, :itinerary_uuid)
     |> foreign_key_exists(User, :id, :user_id)
   end
 

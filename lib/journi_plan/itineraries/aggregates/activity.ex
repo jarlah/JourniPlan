@@ -5,7 +5,7 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
     :description,
     :start_time,
     :end_time,
-    :itinerary_id,
+    :itinerary_uuid,
     :user_id
   ]
 
@@ -28,7 +28,7 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
       description: event.description,
       start_time: event.start_time,
       end_time: event.end_time,
-      itinerary_id: event.itinerary_id,
+      itinerary_uuid: event.itinerary_uuid,
       user_id: event.user_id
     }
   end
@@ -65,7 +65,7 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
         description: event.description,
         start_time: event.start_time,
         end_time: event.end_time,
-        itinerary_id: event.itinerary_id,
+        itinerary_uuid: event.itinerary_uuid,
         user_id: event.user_id
     }
   end

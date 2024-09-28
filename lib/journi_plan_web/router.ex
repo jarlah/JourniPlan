@@ -17,16 +17,17 @@ defmodule JourniPlanWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", JourniPlanWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", JourniPlanWeb do
   #   pipe_through :api
   # end
+
+  scope "/", JourniPlanWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:journi_plan, :dev_routes) do

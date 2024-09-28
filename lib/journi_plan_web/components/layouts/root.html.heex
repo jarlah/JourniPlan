@@ -13,70 +13,100 @@
   </head>
   <body class="bg-white">
 
-<.flash_group flash={@flash} />
+    <.flash_group flash={@flash} />
 
-<header class="header">
-  <nav class="nav-container">
-    <div class="logo">
-      <a href="/" class="text-black no-underline">JourniPlan</a>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <header class="bg-white shadow-md">
+      <nav class="flex items-center justify-between px-4 py-4 max-w-7xl mx-auto">
+        <!-- Logo -->
+        <div class="text-xl font-semibold">
+          <a href="/" class="text-black no-underline">JourniPlan</a>
+        </div>
+        
+        <!-- Navigation Links -->
+        <ul class="hidden md:flex space-x-6 text-gray-700">
+          <li><a href="#features" class="hover:text-gray-900">Features</a></li>
+          <li><a href="#pricing" class="hover:text-gray-900">Pricing</a></li>
+          <li><a href="#about" class="hover:text-gray-900">About</a></li>
+          <li><a href="#contact" class="hover:text-gray-900">Contact</a></li>
 
-      <%= if @current_user do %>
-        <!-- Logged-in User Info -->
-        <li class="relative group">
-          <!-- User email trigger -->
-          <span class="cursor-pointer text-[0.8125rem] leading-6 text-zinc-900 group-hover:text-gray-600">
-            <%= @current_user.email %>
-          </span>
-          <!-- Dropdown menu -->
-          <ul class="absolute hidden group-hover:block bg-white border rounded-lg group-focus-within:block shadow-md w-48 group-hover:pointer-events-auto">
-            <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
-              <.link href={~p"/users/settings"} class="nav-links-a">
-                Profile
-              </.link>
+          <!-- Logged-in User -->
+          <%= if @current_user do %>
+            <li class="relative group">
+              <span class="cursor-pointer text-sm leading-6 text-zinc-900 group-hover:text-gray-600">
+                <%= @current_user.email %>
+              </span>
+              <ul class="absolute hidden group-hover:block bg-white border rounded-lg shadow-md w-48 mt-1 right-0">
+                <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
+                  <.link href={~p"/users/settings"}>Profile</.link>
+                </li>
+                <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
+                  <.link href={~p"/users/log_out"} method="delete">Log out</.link>
+                </li>
+              </ul>
             </li>
-            <li class="px-4 py-2 text-zinc-900 hover:bg-gray-100">
-              <.link href={~p"/users/log_out"} method="delete" class="nav-links-a">
-                Log out
-              </.link>
+          <% else %>
+            <!-- Guest User -->
+            <li>
+              <.link href={~p"/users/register"} class="hover:text-gray-900">Register</.link>
             </li>
-          </ul>
-        </li>
-      <% else %>
-        <!-- Guest User Options -->
-        <li>
-          <.link href={~p"/users/register"} class="nav-links-a">
-            Register
-          </.link>
-        </li>
-        <li>
-          <.link href={~p"/users/log_in"} class="nav-links-a">
-            Log in
-          </.link>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
-</header>
+            <li>
+              <.link href={~p"/users/log_in"} class="hover:text-gray-900">Log in</.link>
+            </li>
+          <% end %>
+        </ul>
 
-<%= @inner_content %>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-gray-500 focus:outline-none" id="mobile-menu-button">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </nav>
 
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2024 JourniPlan. All rights reserved.</p>
-    <ul class="footer-links">
-      <li><a href="/privacy-policy">Privacy Policy</a></li>
-      <li><a href="/terms-of-service">Terms of Service</a></li>
-      <li><a href="https://twitter.com/journi_plan">Twitter</a></li>
-      <li><a href="https://facebook.com/journi_plan">Facebook</a></li>
-    </ul>
-  </div>
-</footer>
+      <!-- Mobile Menu -->
+      <ul id="mobile-menu" class="md:hidden px-4 py-2 space-y-4 hidden">
+        <li><a href="#features" class="block text-gray-700">Features</a></li>
+        <li><a href="#pricing" class="block text-gray-700">Pricing</a></li>
+        <li><a href="#about" class="block text-gray-700">About</a></li>
+        <li><a href="#contact" class="block text-gray-700">Contact</a></li>
+        <%= if @current_user do %>
+          <li>
+            <a href={~p"/users/settings"} class="block text-gray-700">Profile</a>
+          </li>
+          <li>
+            <a href={~p"/users/log_out"} method="delete" class="block text-gray-700">Log out</a>
+          </li>
+        <% else %>
+          <li>
+            <a href={~p"/users/register"} class="block text-gray-700">Register</a>
+          </li>
+          <li>
+            <a href={~p"/users/log_in"} class="block text-gray-700">Log in</a>
+          </li>
+        <% end %>
+      </ul>
+    </header>
 
-</body>
+    <%= @inner_content %>
+
+    <footer class="bg-gray-100 mt-12">
+      <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-500">&copy; 2024 JourniPlan. All rights reserved.</p>
+        <ul class="flex justify-center space-x-4 mt-4 text-gray-500">
+          <li><a href="/privacy-policy" class="hover:text-gray-900">Privacy Policy</a></li>
+          <li><a href="/terms-of-service" class="hover:text-gray-900">Terms of Service</a></li>
+          <li><a href="https://twitter.com/journi_plan" class="hover:text-gray-900">Twitter</a></li>
+          <li><a href="https://facebook.com/journi_plan" class="hover:text-gray-900">Facebook</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <script>
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    </script>
+  </body>
 </html>

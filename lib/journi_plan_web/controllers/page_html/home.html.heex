@@ -5,58 +5,76 @@
     </h1>
 
     <%= if @current_user do %>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <%= for itinerary <- @itineraries do %>
-          <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="px-6 py-4">
-              <h2 class="text-xl font-semibold text-gray-900">
-                <%= itinerary.name %>
-              </h2>
-              <p class="text-gray-700 text-sm mt-2">
-                <%= itinerary.description || "No description available" %>
-              </p>
-            </div>
-
-            <!-- Latest Activities -->
-            <div class="px-6 py-4 bg-gray-50">
-              <h3 class="text-lg font-medium text-gray-900">Latest Activities</h3>
-              <ul class="mt-2 text-sm text-gray-700">
-                <%= if Enum.empty?(itinerary.activities) do %>
-                  <li>No recent activities.</li>
-                <% else %>
-                  <%= for activity <- itinerary.activities do %>
-                    <li>
-                      <%= activity.name %> (<%= activity.start_time %>)
-                    </li>
-                  <% end %>
-                <% end %>
-              </ul>
-            </div>
-
-            <!-- Latest Journal Entries -->
-            <div class="px-6 py-4 bg-gray-50">
-              <h3 class="text-lg font-medium text-gray-900">Latest Journal Entries</h3>
-              <ul class="mt-2 text-sm text-gray-700">
-                <%= if Enum.empty?(itinerary.journal_entries) do %>
-                  <li>No recent journal entries.</li>
-                <% else %>
-                  <%= for entry <- itinerary.journal_entries do %>
-                    <li>
-                      <%= entry.title %> (<%= entry.inserted_at %>)
-                    </li>
-                  <% end %>
-                <% end %>
-              </ul>
-            </div>
-
-            <div class="px-6 py-4 bg-gray-100">
-              <a href={~p"/itineraries/#{itinerary.uuid}"} class="text-indigo-600 hover:text-indigo-900 font-medium">
-                View Details
-              </a>
-            </div>
+      <%= if Enum.empty?(@itineraries) do %>
+        <!-- Centered Box for No Itineraries -->
+        <div class="flex justify-center items-center h-64">
+          <div class="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto text-center">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+              You don't have any itineraries yet
+            </h2>
+            <p class="text-gray-700 mb-4">
+              Start planning your next adventure by creating a new itinerary!
+            </p>
+            <a href={~p"/itineraries/new"} class="inline-block bg-indigo-600 text-white font-medium py-2 px-4 rounded hover:bg-indigo-700">
+              Create New Itinerary
+            </a>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <!-- Display Itineraries -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <%= for itinerary <- @itineraries do %>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+              <div class="px-6 py-4">
+                <h2 class="text-xl font-semibold text-gray-900">
+                  <%= itinerary.name %>
+                </h2>
+                <p class="text-gray-700 text-sm mt-2">
+                  <%= itinerary.description || "No description available" %>
+                </p>
+              </div>
+
+              <!-- Latest Activities -->
+              <div class="px-6 py-4 bg-gray-50">
+                <h3 class="text-lg font-medium text-gray-900">Latest Activities</h3>
+                <ul class="mt-2 text-sm text-gray-700">
+                  <%= if Enum.empty?(itinerary.activities) do %>
+                    <li>No recent activities.</li>
+                  <% else %>
+                    <%= for activity <- itinerary.activities do %>
+                      <li>
+                        <%= activity.name %> (<%= activity.start_time %>)
+                      </li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </div>
+
+              <!-- Latest Journal Entries -->
+              <div class="px-6 py-4 bg-gray-50">
+                <h3 class="text-lg font-medium text-gray-900">Latest Journal Entries</h3>
+                <ul class="mt-2 text-sm text-gray-700">
+                  <%= if Enum.empty?(itinerary.journal_entries) do %>
+                    <li>No recent journal entries.</li>
+                  <% else %>
+                    <%= for entry <- itinerary.journal_entries do %>
+                      <li>
+                        <%= entry.title %> (<%= entry.inserted_at %>)
+                      </li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </div>
+
+              <div class="px-6 py-4 bg-gray-100">
+                <a href={~p"/itineraries/#{itinerary.uuid}"} class="text-indigo-600 hover:text-indigo-900 font-medium">
+                  View Details
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
       <div class="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto text-center">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">

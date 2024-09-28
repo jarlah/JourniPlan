@@ -42,6 +42,7 @@ if config_env() == :prod do
       |> URI.to_string()
 
   config :journi_plan, JourniPlan.EventStore,
+    serializer: Commanded.Serialization.JsonSerializer,
     url: database_url_without_query_string,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6

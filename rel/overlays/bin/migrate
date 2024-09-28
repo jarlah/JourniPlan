@@ -3,3 +3,4 @@ set -eu
 
 cd -P -- "$(dirname -- "$0")"
 exec ./journi_plan eval JourniPlan.Release.migrate
+exec ./journi_plan eval JourniPlan.Release.init_event_store

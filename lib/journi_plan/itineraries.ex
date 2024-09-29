@@ -21,10 +21,12 @@ defmodule JourniPlan.Itineraries do
   def list_user_itineraries(user_id) do
     from(i in Itinerary, where: i.user_id == ^user_id)
     |> Repo.all()
+    |> Repo.preload([:activities, :journal_entries])
   end
 
   def get_itinerary!(uuid) do
     Repo.get_by!(Itinerary, uuid: uuid)
+    |> Repo.preload([:activities, :journal_entries])
   end
 
   def change_itinerary(itinerary, action, params \\ nil)
@@ -96,25 +98,30 @@ defmodule JourniPlan.Itineraries do
   def get_itineraries_by_user_id(user_id) do
     query = from(i in Itinerary, where: i.user_id == ^user_id)
     Repo.all(query)
+    |> Repo.preload([:activities, :journal_entries])
   end
 
   def get_activities_by_itinerary_id(itinerary_uuid) do
     query = from(a in Activity, where: a.itinerary_uuid == ^itinerary_uuid)
     Repo.all(query)
+    |> Repo.preload(:itinerary)
   end
 
   def get_journal_entries_by_itinerary_id(itinerary_uuid) do
     query = from(j in JournalEntry, where: j.itinerary_uuid == ^itinerary_uuid)
     Repo.all(query)
+    |> Repo.preload([:activity, :itinerary])
   end
 
   def get_journal_entries_by_activity_id(activity_uuid) do
     query = from(j in JournalEntry, where: j.activity_uuid == ^activity_uuid)
     Repo.all(query)
+    |> Repo.preload([:activity, :itinerary])
   end
 
   def get_activity!(uuid) do
     Repo.get_by!(Activity, uuid: uuid)
+    |> Repo.preload(:itinerary)
   end
 
   def create_activity(attrs \\ %{}) do
@@ -169,10 +176,12 @@ defmodule JourniPlan.Itineraries do
 
   def list_journal_entries do
     Repo.all(JournalEntry)
+    |> Repo.preload([:activity, :itinerary])
   end
 
   def get_journal_entry!(uuid) do
     Repo.get_by!(JournalEntry, uuid: uuid)
+    |> Repo.preload([:activity, :itinerary])
   end
 
   def change_journal_entry(journal_entry, action, params \\ nil)

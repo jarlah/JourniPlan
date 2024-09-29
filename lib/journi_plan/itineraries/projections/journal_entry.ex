@@ -10,7 +10,7 @@ defmodule JourniPlan.Itineraries.Projections.JournalEntry do
     field :entry_date, :utc_datetime
     field :title, :string
 
-    belongs_to :activity, JourniPlan.Activities.Projections.Activity, references: :uuid, foreign_key: :activity_uuid, type: :binary_id
+    belongs_to :activity, JourniPlan.Itineraries.Projections.Activity, references: :uuid, foreign_key: :activity_uuid, type: :binary_id
     belongs_to :itinerary, JourniPlan.Itineraries.Projections.Itinerary, references: :uuid, foreign_key: :itinerary_uuid, type: :binary_id
     belongs_to :user, JourniPlan.Accounts.User
 

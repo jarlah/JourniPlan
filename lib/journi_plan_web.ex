@@ -17,7 +17,21 @@ defmodule JourniPlanWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+  def static_paths, do: ~w(
+    assets
+    fonts
+    images
+    android-chrome-96x96.png
+    apple-touch-icon.png
+    browserconfig.xml
+    favicon.ico
+    favicon-32x32.png
+    favicon-16x16.png
+    mstile-150x150.png
+    robots.txt
+    safari-pinned-tab.svg
+    site.webmanifest
+  )
 
   def router do
     quote do

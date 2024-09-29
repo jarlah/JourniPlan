@@ -1,3 +1,5 @@
+# ![JourniPlan Logo](priv/static/images/logo.png)
+
 # JourniPlan
 
 **JourniPlan** is an open-source travel planner and micro journaling app that helps you organize and document your trips in one place. 

@@ -64,7 +64,7 @@ defmodule JourniPlan.MixProject do
       {:commanded_eventstore_adapter, "~> 1.4"},
       {:commanded_ecto_projections, "~> 1.4"},
       {:exconstructor, "~> 1.2"},
-      {:testcontainers, "~> 1.10.1", only: [:dev, :test]}
+      {:testcontainers, "~> 1.10", only: [:dev, :test], runtime: false},
     ]
   end
 
@@ -85,7 +85,7 @@ defmodule JourniPlan.MixProject do
       "event_store.init": ["event_store.drop", "event_store.create", "event_store.init"],
       "ecto.init": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       reset: ["event_store.init", "ecto.init"],
-      test: ["reset", "test"],
+      test: ["reset", "test --stale"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind journi_plan", "esbuild journi_plan"],
       "assets.deploy": [

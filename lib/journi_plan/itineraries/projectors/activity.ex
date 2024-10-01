@@ -18,6 +18,7 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
 
   alias JourniPlan.Itineraries.Projections.Activity
 
+  # TODO fix this
   project(%ActivityCreated{} = created, _, fn multi ->
     {:ok, start_time, _} = DateTime.from_iso8601(created.start_time)
     {:ok, end_time, _} = DateTime.from_iso8601(created.end_time)

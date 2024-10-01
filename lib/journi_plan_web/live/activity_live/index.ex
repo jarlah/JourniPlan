@@ -5,13 +5,14 @@ defmodule JourniPlanWeb.ActivityLive.Index do
   alias JourniPlan.Itineraries.Projections.Activity
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     current_user = socket.assigns.current_user
 
     {
       :ok,
       socket
       |> assign(:current_user, current_user)
+      |> assign(:itinerary_id, params["id"])
       |> stream_configure(:activities, dom_id: & &1.uuid)
       |> stream(:activities, Itineraries.list_user_activities(current_user.id))
     }

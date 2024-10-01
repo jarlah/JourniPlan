@@ -32,7 +32,8 @@ defmodule JourniPlanWeb.ActivityLive.FormComponent do
   end
 
   @impl true
-  def update(%{activity: activity, action: action} = assigns, socket) do
+  def update(%{activity: activity, itinerary_id: itinerary_id, action: action} = assigns, socket) do
+    IO.puts("Itinerary ID in FormComponent: #{inspect(itinerary_id)}")
     {:ok,
      socket
      |> assign(assigns)
@@ -66,6 +67,10 @@ defmodule JourniPlanWeb.ActivityLive.FormComponent do
   end
 
   defp save_activity(socket, :new, activity_params) do
+    user_id = socket.assigns.current_user.id
+    activity_params = Map.put(activity_params, "user_id", user_id)
+    activity_params = Map.put(activity_params, "itinerary_uuid", socket.assigns.itinerary_id)
+
     case Itineraries.create_activity(activity_params) do
       {:ok, activity} ->
         notify_parent({:saved, activity})
@@ -76,6 +81,7 @@ defmodule JourniPlanWeb.ActivityLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect(changeset)
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

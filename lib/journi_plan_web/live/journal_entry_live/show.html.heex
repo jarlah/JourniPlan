@@ -1,0 +1,28 @@
+<.header>
+  Journal entry <%= @journal_entry.id %>
+  <:subtitle>This is a journal_entry record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/journal_entries/#{@journal_entry}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit journal_entry</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @journal_entry.title %></:item>
+  <:item title="Body"><%= @journal_entry.body %></:item>
+  <:item title="Entry date"><%= @journal_entry.entry_date %></:item>
+</.list>
+
+<.back navigate={~p"/journal_entries"}>Back to journal_entries</.back>
+
+<.modal :if={@live_action == :edit} id="journal_entry-modal" show on_cancel={JS.patch(~p"/journal_entries/#{@journal_entry}")}>
+  <.live_component
+    module={JourniPlanWeb.JournalEntryLive.FormComponent}
+    id={@journal_entry.id}
+    title={@page_title}
+    action={@live_action}
+    journal_entry={@journal_entry}
+    patch={~p"/journal_entries/#{@journal_entry}"}
+  />
+</.modal>

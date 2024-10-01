@@ -4,6 +4,7 @@ defmodule JourniPlan.ItinerariesFixtures do
   entities via the `JourniPlan.Itineraries` context.
   """
 
+  alias JourniPlan.Itineraries.Aggregates.Activity
   alias JourniPlan.AccountsFixtures
 
   @doc """
@@ -22,6 +23,16 @@ defmodule JourniPlan.ItinerariesFixtures do
       |> JourniPlan.Itineraries.create_itinerary()
 
     itinerary
+  end
+
+  def activity_fixture(_attrs \\ %{}) do
+    # TODO: Implement this function
+    %Activity{
+      description: "some description",
+      end_time: ~U[2024-09-30 17:57:00Z],
+      name: "some name",
+      start_time: ~U[2024-09-30 17:57:00Z]
+    }
   end
 
   def journal_entry_fixture(attrs \\ %{}) do

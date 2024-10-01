@@ -24,6 +24,12 @@ defmodule JourniPlan.Itineraries do
     |> Repo.preload([:activities, :journal_entries])
   end
 
+  def list_user_journal_entries(user_id) do
+    from(j in JournalEntry, where: j.user_id == ^user_id)
+    |> Repo.all()
+    |> Repo.preload([:activity, :itinerary])
+  end
+
   def get_itinerary!(uuid) do
     Repo.get_by!(Itinerary, uuid: uuid)
     |> Repo.preload([:activities, :journal_entries])
@@ -192,7 +198,7 @@ defmodule JourniPlan.Itineraries do
 
   def change_activity(activity, action, params \\ nil)
 
-  def change_activity(%JournalEntry{} = activity, :edit, params) do
+  def change_activity(%Activity{} = activity, :edit, params) do
     UpdateActivity.changeset(
       %UpdateActivity{uuid: activity.uuid},
       params || Map.from_struct(activity)

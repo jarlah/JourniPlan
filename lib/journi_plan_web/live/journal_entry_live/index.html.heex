@@ -23,7 +23,7 @@
   </:action>
   <:action :let={{id, journal_entry}}>
     <.link
-      phx-click={JS.push("delete", value: %{id: journal_entry.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{id: journal_entry.uuid}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
       Delete
@@ -34,10 +34,11 @@
 <.modal :if={@live_action in [:new, :edit]} id="journal_entry-modal" show on_cancel={JS.patch(~p"/journal_entries")}>
   <.live_component
     module={JourniPlanWeb.JournalEntryLive.FormComponent}
-    id={@journal_entry.id || :new}
+    id={@journal_entry.uuid || :new}
     title={@page_title}
     action={@live_action}
     journal_entry={@journal_entry}
+    current_user={@current_user}
     patch={~p"/journal_entries"}
   />
 </.modal>

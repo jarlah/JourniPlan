@@ -1,5 +1,5 @@
 <.header>
-  Activity <%= @activity.id %>
+  Activity <%= @activity.uuid %>
   <:subtitle>This is a activity record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/activities/#{@activity}/show/edit"} phx-click={JS.push_focus()}>
@@ -20,7 +20,7 @@
 <.modal :if={@live_action == :edit} id="activity-modal" show on_cancel={JS.patch(~p"/activities/#{@activity}")}>
   <.live_component
     module={JourniPlanWeb.ActivityLive.FormComponent}
-    id={@activity.id}
+    id={@activity.uuid}
     title={@page_title}
     action={@live_action}
     activity={@activity}

@@ -24,7 +24,7 @@
   </:action>
   <:action :let={{id, activity}}>
     <.link
-      phx-click={JS.push("delete", value: %{id: activity.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{id: activity.uuid}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
       Delete
@@ -35,10 +35,11 @@
 <.modal :if={@live_action in [:new, :edit]} id="activity-modal" show on_cancel={JS.patch(~p"/activities")}>
   <.live_component
     module={JourniPlanWeb.ActivityLive.FormComponent}
-    id={@activity.id || :new}
+    id={@activity.uuid || :new}
     title={@page_title}
     action={@live_action}
     activity={@activity}
+    current_user={@current_user}
     patch={~p"/activities"}
   />
 </.modal>

@@ -2,19 +2,25 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
   use JourniPlanWeb.ConnCase
 
   import Phoenix.LiveViewTest
+  alias JourniPlan.Accounts
+
   import JourniPlan.ItinerariesFixtures
 
   @create_attrs %{body: "some body", entry_date: "2024-09-30T17:55:00Z", title: "some title"}
   @update_attrs %{body: "some updated body", entry_date: "2024-10-01T17:55:00Z", title: "some updated title"}
   @invalid_attrs %{body: nil, entry_date: nil, title: nil}
 
-  defp create_journal_entry(_) do
-    journal_entry = journal_entry_fixture()
-    %{journal_entry: journal_entry}
+  setup do
+    {:ok, user} =
+      %{email: "test@example.com", password: "passwordpassword123"}
+      |> Accounts.register_user()
+
+      journal_entry = journal_entry_fixture(%{user_id: user.id})
+
+    {:ok, conn: log_in_user(build_conn(), user), user: user, journal_entry: journal_entry}
   end
 
   describe "Index" do
-    setup [:create_journal_entry]
 
     test "lists all journal_entries", %{conn: conn, journal_entry: journal_entry} do
       {:ok, _index_live, html} = live(conn, ~p"/journal_entries")
@@ -49,7 +55,7 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
     test "updates journal_entry in listing", %{conn: conn, journal_entry: journal_entry} do
       {:ok, index_live, _html} = live(conn, ~p"/journal_entries")
 
-      assert index_live |> element("#journal_entries-#{journal_entry.id} a", "Edit") |> render_click() =~
+      assert index_live |> element("##{journal_entry.uuid} a", "Edit") |> render_click() =~
                "Edit Journal entry"
 
       assert_patch(index_live, ~p"/journal_entries/#{journal_entry}/edit")
@@ -72,13 +78,12 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
     test "deletes journal_entry in listing", %{conn: conn, journal_entry: journal_entry} do
       {:ok, index_live, _html} = live(conn, ~p"/journal_entries")
 
-      assert index_live |> element("#journal_entries-#{journal_entry.id} a", "Delete") |> render_click()
-      refute has_element?(index_live, "#journal_entries-#{journal_entry.id}")
+      assert index_live |> element("##{journal_entry.uuid} a", "Delete") |> render_click()
+      refute has_element?(index_live, "##{journal_entry.uuid}")
     end
   end
 
   describe "Show" do
-    setup [:create_journal_entry]
 
     test "displays journal_entry", %{conn: conn, journal_entry: journal_entry} do
       {:ok, _show_live, html} = live(conn, ~p"/journal_entries/#{journal_entry}")

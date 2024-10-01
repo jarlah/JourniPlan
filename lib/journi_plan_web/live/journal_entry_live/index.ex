@@ -6,7 +6,15 @@ defmodule JourniPlanWeb.JournalEntryLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :journal_entries, Itineraries.list_journal_entries())}
+    current_user = socket.assigns.current_user
+
+    {
+      :ok,
+      socket
+      |> assign(:current_user, current_user)
+      |> stream_configure(:journal_entries, dom_id: & &1.uuid)
+      |> stream(:journal_entries, Itineraries.list_user_journal_entries(current_user.id))
+    }
   end
 
   @impl true

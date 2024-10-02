@@ -66,6 +66,9 @@
                 </ul>
               </div>
 
+              <.link patch={~p"/itineraries/#{itinerary}/activities/new"}>Add activity</.link>
+              <.link patch={~p"/itineraries/#{itinerary}/journal_entries/new"}>Add journal entry</.link>
+
               <div class="px-6 py-4 bg-gray-100">
                 <a href={~p"/itineraries/#{itinerary.uuid}"} class="text-indigo-600 hover:text-indigo-900 font-medium">
                   View Details

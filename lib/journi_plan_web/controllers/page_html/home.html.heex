@@ -66,6 +66,18 @@
                 </ul>
               </div>
 
+              <!-- Action Buttons -->
+              <div class="px-6 py-4 bg-gray-100 flex space-x-4">
+                <.link patch={~p"/itineraries/#{itinerary}/activities/new"} 
+                      class="inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                  Add activity
+                </.link>
+                <.link patch={~p"/itineraries/#{itinerary}/journal_entries/new"} 
+                      class="inline-block px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+                  Add journal entry
+                </.link>
+              </div>
+
               <div class="px-6 py-4 bg-gray-100">
                 <a href={~p"/itineraries/#{itinerary.uuid}"} class="text-indigo-600 hover:text-indigo-900 font-medium">
                   View Details

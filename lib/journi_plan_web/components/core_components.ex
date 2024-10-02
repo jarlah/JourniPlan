@@ -17,7 +17,7 @@ defmodule JourniPlanWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import JourniPlanWeb.Gettext
+  use Gettext, backend: JourniPlanWeb.Gettext
 
   @doc """
   Renders a modal.

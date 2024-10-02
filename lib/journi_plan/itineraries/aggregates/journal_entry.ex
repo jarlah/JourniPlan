@@ -9,6 +9,7 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
     :user_id
   ]
 
+  alias JourniPlan.Itineraries.Commands.DeleteJournalEntry
   alias JourniPlan.Itineraries.Commands.CreateJournalEntry
   alias JourniPlan.Itineraries.Commands.UpdateJournalEntry
   alias JourniPlan.Itineraries.Events.JournalEntryCreated
@@ -42,9 +43,15 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
     [title_command, body_command] |> Enum.filter(&Function.identity/1)
   end
 
+
+  def execute(%JournalEntry{}, %DeleteJournalEntry{uuid: uuid}) do
+    %JournalEntryDeleted{uuid: uuid}
+  end
+
   def apply(%JournalEntry{} = journal_entry, %JournalEntryCreated{} = event) do
     %JournalEntry{
       journal_entry |
+      uuid: event.uuid,
       title: event.title,
       body: event.body,
       entry_date: event.entry_date,

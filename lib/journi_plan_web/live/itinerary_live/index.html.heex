@@ -14,16 +14,22 @@
 >
   <:col :let={{_id, itinerary}} label="Name"><%= itinerary.name %></:col>
   <:col :let={{_id, itinerary}} label="Description"><%= itinerary.description %></:col>
+  
+  <!-- Actions Column -->
   <:action :let={{_id, itinerary}}>
-    <div class="sr-only">
-      <.link navigate={~p"/itineraries/#{itinerary}"}>Show</.link>
+    <div class="flex space-x-2">
+      <.link patch={~p"/itineraries/#{itinerary}/edit"} class="text-blue-600 hover:text-blue-900">Edit</.link>
+      <.link patch={~p"/itineraries/#{itinerary}/activities/new"} class="text-green-600 hover:text-green-900">Add activity</.link>
+      <.link patch={~p"/itineraries/#{itinerary}/journal_entries/new"} class="text-purple-600 hover:text-purple-900">Add journal entry</.link>
     </div>
-    <.link patch={~p"/itineraries/#{itinerary}/edit"}>Edit</.link>
   </:action>
+
+  <!-- Delete Action -->
   <:action :let={{id, itinerary}}>
     <.link
       phx-click={JS.push("delete", value: %{id: itinerary.uuid}) |> hide("##{id}")}
       data-confirm="Are you sure?"
+      class="text-red-600 hover:text-red-900"
     >
       Delete
     </.link>

@@ -76,6 +76,20 @@ defmodule JourniPlanWeb.Router do
 
       live "/itineraries/:id", ItineraryLive.Show, :show
       live "/itineraries/:id/show/edit", ItineraryLive.Show, :edit
+
+      live "/journal_entries", JournalEntryLive.Index, :index
+      live "/itineraries/:id/journal_entries/new", JournalEntryLive.Index, :new
+      live "/journal_entries/:id/edit", JournalEntryLive.Index, :edit
+
+      live "/journal_entries/:id", JournalEntryLive.Show, :show
+      live "/journal_entries/:id/show/edit", JournalEntryLive.Show, :edit
+
+      live "/activities", ActivityLive.Index, :index
+      live "/itineraries/:id/activities/new", ActivityLive.Index, :new
+      live "/activities/:id/edit", ActivityLive.Index, :edit
+
+      live "/activities/:id", ActivityLive.Show, :show
+      live "/activities/:id/show/edit", ActivityLive.Show, :edit
     end
   end
 

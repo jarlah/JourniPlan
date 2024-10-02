@@ -19,8 +19,14 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
   alias JourniPlan.Itineraries.Projections.Activity
 
   project(%ActivityCreated{} = created, _, fn multi ->
-    {:ok, start_time, _} = DateTime.from_iso8601(created.start_time)
-    {:ok, end_time, _} = DateTime.from_iso8601(created.end_time)
+    start_time =
+      created.start_time
+      |> Timex.parse!("%Y-%m-%dT%H:%M", :strftime)
+      |> Timex.to_datetime("Etc/UTC")
+    end_time =
+      created.end_time
+      |> Timex.parse!("%Y-%m-%dT%H:%M", :strftime)
+      |> Timex.to_datetime("Etc/UTC")
     itinerary_uuid = cast_uuid!(created.itinerary_uuid)
 
     Ecto.Multi.insert(multi, :activity, %Activity{

@@ -18,7 +18,6 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
 
   alias JourniPlan.Itineraries.Projections.Activity
 
-  # TODO fix this
   project(%ActivityCreated{} = created, _, fn multi ->
     start_time =
       created.start_time

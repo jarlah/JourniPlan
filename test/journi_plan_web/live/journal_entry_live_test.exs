@@ -6,8 +6,8 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
 
   import JourniPlan.ItinerariesFixtures
 
-  @create_attrs %{body: "some body", entry_date: "2024-09-30T17:55:00Z", title: "some title"}
-  @update_attrs %{body: "some updated body", entry_date: "2024-10-01T17:55:00Z", title: "some updated title"}
+  @create_attrs %{body: "some body", entry_date: "2024-09-30T17:55", title: "some title"}
+  @update_attrs %{body: "some updated body", entry_date: "2024-10-01T17:55", title: "some updated title"}
   @invalid_attrs %{body: nil, entry_date: nil, title: nil}
 
   setup do

@@ -5,8 +5,8 @@ defmodule JourniPlanWeb.ActivityLiveTest do
   alias JourniPlan.Accounts
   import JourniPlan.ItinerariesFixtures
 
-  @create_attrs %{description: "some description", end_time: "2024-09-30T17:57:00Z", name: "some name", start_time: "2024-09-30T17:57:00Z"}
-  @update_attrs %{description: "some updated description", end_time: "2024-10-01T17:57:00Z", name: "some updated name", start_time: "2024-10-01T17:57:00Z"}
+  @create_attrs %{description: "some description", end_time: "2024-09-30T17:57", name: "some name", start_time: "2024-09-30T17:57"}
+  @update_attrs %{description: "some updated description", end_time: "2024-10-01T17:57", name: "some updated name", start_time: "2024-10-01T17:57"}
   @invalid_attrs %{description: nil, end_time: nil, name: nil, start_time: nil}
 
   setup do

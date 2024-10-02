@@ -33,8 +33,8 @@ defmodule JourniPlan.ItinerariesFixtures do
       |> Enum.into(%{
         name: "some name",
         description: "some description",
-        end_time: ~U[2021-01-01 12:00:00Z],
-        start_time: ~U[2021-01-01 16:00:00Z],
+        end_time: "2021-01-01T12:00",
+        start_time: "2021-01-01T16:00",
         user_id: user_id,
         itinerary_uuid: itinerary_id
       })
@@ -54,7 +54,7 @@ defmodule JourniPlan.ItinerariesFixtures do
         body: "some body",
         title: "some title",
         user_id: user_id,
-        entry_date: ~U[2021-01-01 00:00:00Z],
+        entry_date: "2021-01-01T00:00",
         itinerary_uuid: itinerary_id,
         activity_uuid: activity_id
       })

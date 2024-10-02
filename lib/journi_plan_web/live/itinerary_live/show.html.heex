@@ -13,6 +13,9 @@
   <:item title="Description"><%= @itinerary.description %></:item>
 </.list>
 
+<.link patch={~p"/itineraries/#{@itinerary}/activities/new"}>Add activity</.link>
+<.link patch={~p"/itineraries/#{@itinerary}/journal_entries/new"}>Add journal entry</.link>
+
 <.back navigate={~p"/itineraries"}>Back to itineraries</.back>
 
 <.modal :if={@live_action == :edit} id="itinerary-modal" show on_cancel={JS.patch(~p"/itineraries/#{@itinerary}")}>

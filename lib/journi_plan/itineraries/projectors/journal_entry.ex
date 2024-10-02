@@ -17,7 +17,10 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
   alias JourniPlan.Itineraries.Projections.JournalEntry
 
   project(%JournalEntryCreated{} = created, _, fn multi ->
-    {:ok, entry_date, _} = DateTime.from_iso8601(created.entry_date)
+    entry_date =
+      created.entry_date
+      |> Timex.parse!("%Y-%m-%dT%H:%M", :strftime)
+      |> Timex.to_datetime("Etc/UTC")
     itinerary_uuid = cast_uuid!(created.itinerary_uuid)
     activity_uuid = cast_uuid!(created.activity_uuid)
 

@@ -19,6 +19,8 @@
       <.link navigate={~p"/itineraries/#{itinerary}"}>Show</.link>
     </div>
     <.link patch={~p"/itineraries/#{itinerary}/edit"}>Edit</.link>
+    <.link patch={~p"/itineraries/#{itinerary}/activities/new"}>Add activity</.link>
+    <.link patch={~p"/itineraries/#{itinerary}/journal_entries/new"}>Add journal entry</.link>
   </:action>
   <:action :let={{id, itinerary}}>
     <.link

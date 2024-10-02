@@ -21,8 +21,8 @@
 {:ok, activity} = JourniPlan.Itineraries.create_activity(%{
   name: "My first activity",
   description: "This is my first activity",
-  start_time: ~U[2024-09-22 12:34:56Z],
-  end_time: ~U[2024-09-26 15:00:56Z],
+  start_time: "2024-09-22T12:34",
+  end_time: "2024-09-26T15:00",
   itinerary_uuid: itinerary.uuid,
   user_id: user.id
 })
@@ -30,7 +30,7 @@
 {:ok, _journal_entry} = JourniPlan.Itineraries.create_journal_entry(%{
   title: "My first journal entry",
   body: "This is my first journal entry",
-  entry_date: ~U[2024-09-24 12:34:56Z],
+  entry_date: "2024-09-24T12:34",
   itinerary_uuid: itinerary.uuid,
   activity_uuid: activity.uuid,
   user_id: user.id

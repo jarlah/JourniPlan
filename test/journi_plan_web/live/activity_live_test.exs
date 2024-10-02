@@ -28,13 +28,8 @@ defmodule JourniPlanWeb.ActivityLiveTest do
       assert html =~ activity.description
     end
 
-    test "saves new activity", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/activities")
-
-      assert index_live |> element("a", "New Activity") |> render_click() =~
-               "New Activity"
-
-      assert_patch(index_live, ~p"/activities/new")
+    test "saves new activity", %{conn: conn, activity: activity} do
+      {:ok, index_live, _html} = live(conn, ~p"/itineraries/#{activity.itinerary_uuid}/activities/new")
 
       assert index_live
              |> form("#activity-form", activity: @invalid_attrs)

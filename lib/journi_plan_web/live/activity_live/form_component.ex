@@ -32,8 +32,7 @@ defmodule JourniPlanWeb.ActivityLive.FormComponent do
   end
 
   @impl true
-  def update(%{activity: activity, itinerary_id: itinerary_id, action: action} = assigns, socket) do
-    IO.puts("Itinerary ID in FormComponent: #{inspect(itinerary_id)}")
+  def update(%{activity: activity, action: action} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
@@ -81,7 +80,6 @@ defmodule JourniPlanWeb.ActivityLive.FormComponent do
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

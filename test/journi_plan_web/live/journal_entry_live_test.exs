@@ -29,13 +29,8 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
       assert html =~ journal_entry.body
     end
 
-    test "saves new journal_entry", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/journal_entries")
-
-      assert index_live |> element("a", "New Journal entry") |> render_click() =~
-               "New Journal entry"
-
-      assert_patch(index_live, ~p"/journal_entries/new")
+    test "saves new journal_entry", %{conn: conn, journal_entry: journal_entry} do
+      {:ok, index_live, _html} = live(conn, ~p"/itineraries/#{journal_entry.itinerary_uuid}/journal_entries/new")
 
       assert index_live
              |> form("#journal_entry-form", journal_entry: @invalid_attrs)

@@ -64,6 +64,9 @@ defmodule JourniPlanWeb.JournalEntryLive.FormComponent do
   end
 
   defp save_journal_entry(socket, :new, journal_entry_params) do
+    user_id = socket.assigns.current_user.id
+    journal_entry_params = Map.put(journal_entry_params, "user_id", user_id)
+    journal_entry_params = Map.put(journal_entry_params, "itinerary_uuid", socket.assigns.itinerary_id)
     case Itineraries.create_journal_entry(journal_entry_params) do
       {:ok, journal_entry} ->
         notify_parent({:saved, journal_entry})

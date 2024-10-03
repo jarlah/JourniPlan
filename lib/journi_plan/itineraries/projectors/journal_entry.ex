@@ -9,18 +9,19 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
 
   import  JourniPlan.Utils.UUID
 
-  alias JourniPlan.Itineraries.Events.JournalEntryCreated
-  alias JourniPlan.Itineraries.Events.JournalEntryTitleUpdated
-  alias JourniPlan.Itineraries.Events.JournalEntryBodyUpdated
-  alias JourniPlan.Itineraries.Events.JournalEntryDeleted
+  alias JourniPlan.Itineraries.Events.{
+    JournalEntryCreated,
+    JournalEntryTitleUpdated,
+    JournalEntryBodyUpdated,
+    JournalEntryDeleted
+  }
 
   alias JourniPlan.Itineraries.Projections.JournalEntry
 
+  import JourniPlan.TimexUtils, only: [parse_to_datetime!: 1]
+
   project(%JournalEntryCreated{} = created, _, fn multi ->
-    entry_date =
-      created.entry_date
-      |> Timex.parse!("%Y-%m-%dT%H:%M", :strftime)
-      |> Timex.to_datetime("Etc/UTC")
+    entry_date = parse_to_datetime!(created.entry_date)
     itinerary_uuid = cast_uuid!(created.itinerary_uuid)
     activity_uuid = cast_uuid!(created.activity_uuid)
 

@@ -9,24 +9,22 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
 
   import  JourniPlan.Utils.UUID
 
-  alias JourniPlan.Itineraries.Events.ActivityCreated
-  alias JourniPlan.Itineraries.Events.ActivityNameUpdated
-  alias JourniPlan.Itineraries.Events.ActivityDescriptionUpdated
-  alias JourniPlan.Itineraries.Events.ActivityStartTimeUpdated
-  alias JourniPlan.Itineraries.Events.ActivityEndTimeUpdated
-  alias JourniPlan.Itineraries.Events.ActivityDeleted
+  alias JourniPlan.Itineraries.Events.{
+    ActivityCreated,
+    ActivityNameUpdated,
+    ActivityDescriptionUpdated,
+    ActivityStartTimeUpdated,
+    ActivityEndTimeUpdated,
+    ActivityDeleted
+  }
 
   alias JourniPlan.Itineraries.Projections.Activity
 
+  import JourniPlan.TimexUtils, only: [parse_to_datetime!: 1]
+
   project(%ActivityCreated{} = created, _, fn multi ->
-    start_time =
-      created.start_time
-      |> Timex.parse!("%Y-%m-%dT%H:%M", :strftime)
-      |> Timex.to_datetime("Etc/UTC")
-    end_time =
-      created.end_time
-      |> Timex.parse!("%Y-%m-%dT%H:%M", :strftime)
-      |> Timex.to_datetime("Etc/UTC")
+    start_time = parse_to_datetime!(created.start_time)
+    end_time = parse_to_datetime!(created.end_time)
     itinerary_uuid = cast_uuid!(created.itinerary_uuid)
 
     Ecto.Multi.insert(multi, :activity, %Activity{

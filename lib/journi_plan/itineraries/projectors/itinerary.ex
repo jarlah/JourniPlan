@@ -7,10 +7,12 @@ defmodule JourniPlan.Itineraries.Projectors.Itinerary do
 
   alias JourniPlan.Repo
 
-  alias JourniPlan.Itineraries.Events.ItineraryCreated
-  alias JourniPlan.Itineraries.Events.ItineraryNameUpdated
-  alias JourniPlan.Itineraries.Events.ItineraryDescriptionUpdated
-  alias JourniPlan.Itineraries.Events.ItineraryDeleted
+  alias JourniPlan.Itineraries.Events.{
+    ItineraryCreated,
+    ItineraryNameUpdated,
+    ItineraryDescriptionUpdated,
+    ItineraryDeleted
+  }
 
   alias JourniPlan.Itineraries.Projections.Itinerary
 

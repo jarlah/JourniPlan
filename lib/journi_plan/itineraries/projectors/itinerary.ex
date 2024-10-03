@@ -27,15 +27,25 @@ defmodule JourniPlan.Itineraries.Projectors.Itinerary do
 
   project(%ItineraryNameUpdated{uuid: uuid, name: name}, _, fn multi ->
     case Repo.get(Itinerary, uuid) do
-      nil -> multi
-      itinerary -> Ecto.Multi.update(multi, :itinerary, Itinerary.changeset(itinerary, %{name: name}))
+      nil ->
+        multi
+
+      itinerary ->
+        Ecto.Multi.update(multi, :itinerary, Itinerary.changeset(itinerary, %{name: name}))
     end
   end)
 
   project(%ItineraryDescriptionUpdated{uuid: uuid, description: description}, _, fn multi ->
     case Repo.get(Itinerary, uuid) do
-      nil -> multi
-      itinerary -> Ecto.Multi.update(multi, :itinerary, Itinerary.changeset(itinerary, %{description: description}))
+      nil ->
+        multi
+
+      itinerary ->
+        Ecto.Multi.update(
+          multi,
+          :itinerary,
+          Itinerary.changeset(itinerary, %{description: description})
+        )
     end
   end)
 
@@ -45,5 +55,4 @@ defmodule JourniPlan.Itineraries.Projectors.Itinerary do
       itinerary -> Ecto.Multi.delete(multi, :itinerary, itinerary)
     end
   end)
-
 end

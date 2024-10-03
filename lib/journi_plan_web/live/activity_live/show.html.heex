@@ -17,7 +17,12 @@
 
 <.back navigate={~p"/activities"}>Back to activities</.back>
 
-<.modal :if={@live_action == :edit} id="activity-modal" show on_cancel={JS.patch(~p"/activities/#{@activity}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="activity-modal"
+  show
+  on_cancel={JS.patch(~p"/activities/#{@activity}")}
+>
   <.live_component
     module={JourniPlanWeb.ActivityLive.FormComponent}
     id={@activity.uuid}

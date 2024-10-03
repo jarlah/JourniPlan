@@ -10,17 +10,16 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#ff96fc">
-    <meta name="theme-color" content="#ff96fc">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#ff96fc" />
+    <meta name="theme-color" content="#ff96fc" />
   </head>
   <body class="bg-white">
-
     <.flash_group flash={@flash} />
 
     <header class="bg-white shadow-md">
@@ -28,10 +27,10 @@
         <div class="text-xl font-semibold">
           <a href="/">
             <!-- Replace the text with the logo image -->
-            <img src={~p"/images/logo.png"} alt="JourniPlan Logo" class="h-10">
+            <img src={~p"/images/logo.png"} alt="JourniPlan Logo" class="h-10" />
           </a>
         </div>
-        
+
         <ul class="hidden md:flex space-x-6 text-gray-700">
           <li><a href="#features" class="hover:text-gray-900">Features</a></li>
           <li><a href="#pricing" class="hover:text-gray-900">Pricing</a></li>
@@ -48,24 +47,43 @@
               >
                 <%= @current_user.email %>
                 <!-- Dropdown icon -->
-                <svg class="ml-2 h-5 w-5 text-gray-400 hover:text-gray-600 transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                <svg
+                  class="ml-2 h-5 w-5 text-gray-400 hover:text-gray-600 transition"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
                 </svg>
               </button>
 
-              <div 
+              <div
                 class="absolute right-0 mt-0 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 hidden group-hover:block transition ease-out duration-150"
-                role="menu" 
-                aria-orientation="vertical" 
-                aria-labelledby="menu-button" 
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="menu-button"
                 tabindex="-1"
               >
                 <div class="py-1" role="none">
-                  <.link href={~p"/users/settings"} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                  <.link
+                    href={~p"/users/settings"}
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                  >
                     Profile
                   </.link>
 
-                  <.link href={~p"/users/log_out"} method="delete" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                  <.link
+                    href={~p"/users/log_out"}
+                    method="delete"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                  >
                     Log out
                   </.link>
                 </div>
@@ -81,15 +99,19 @@
             </li>
           <% end %>
         </ul>
-
         <!-- Mobile Menu Button -->
         <button class="md:hidden text-gray-500 focus:outline-none" id="mobile-menu-button">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            >
+            </path>
           </svg>
         </button>
       </nav>
-
       <!-- Mobile Menu -->
       <ul id="mobile-menu" class="md:hidden px-4 py-2 space-y-4 hidden">
         <li><a href="#features" class="block text-gray-700">Features</a></li>
@@ -122,8 +144,12 @@
         <ul class="flex justify-center space-x-4 mt-4 text-gray-500">
           <li><a href="/privacy-policy" class="hover:text-gray-900">Privacy Policy</a></li>
           <li><a href="/terms-of-service" class="hover:text-gray-900">Terms of Service</a></li>
-          <li><a href="https://twitter.com/journi_plan" class="hover:text-gray-900">Twitter</a></li>
-          <li><a href="https://facebook.com/journi_plan" class="hover:text-gray-900">Facebook</a></li>
+          <li>
+            <a href="https://twitter.com/journi_plan" class="hover:text-gray-900">Twitter</a>
+          </li>
+          <li>
+            <a href="https://facebook.com/journi_plan" class="hover:text-gray-900">Facebook</a>
+          </li>
         </ul>
       </div>
     </footer>

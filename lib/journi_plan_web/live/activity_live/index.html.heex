@@ -32,7 +32,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="activity-modal" show on_cancel={JS.patch(~p"/activities")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="activity-modal"
+  show
+  on_cancel={JS.patch(~p"/activities")}
+>
   <.live_component
     module={JourniPlanWeb.ActivityLive.FormComponent}
     id={@activity.uuid || :new}

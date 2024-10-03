@@ -4,10 +4,11 @@ defmodule JourniPlanWeb.PageControllerTest do
 
   setup do
     # Register a test user
-    {:ok, user} = Accounts.register_user(%{
-      email: "test@example.com",
-      password: "passwordpassword123"
-    })
+    {:ok, user} =
+      Accounts.register_user(%{
+        email: "test@example.com",
+        password: "passwordpassword123"
+      })
 
     # Log the user in by modifying the connection
     {:ok, conn: log_in_user(build_conn(), user), user: user}

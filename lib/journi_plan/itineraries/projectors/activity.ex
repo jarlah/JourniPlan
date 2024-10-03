@@ -7,7 +7,7 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
 
   alias JourniPlan.Repo
 
-  import  JourniPlan.Utils.UUID
+  import JourniPlan.Utils.UUID
 
   alias JourniPlan.Itineraries.Events.{
     ActivityCreated,
@@ -47,22 +47,39 @@ defmodule JourniPlan.Itineraries.Projectors.Activity do
 
   project(%ActivityDescriptionUpdated{uuid: uuid, description: description}, _, fn multi ->
     case Repo.get(Activity, uuid) do
-      nil -> multi
-      activity -> Ecto.Multi.update(multi, :activity, Activity.changeset(activity, %{description: description}))
+      nil ->
+        multi
+
+      activity ->
+        Ecto.Multi.update(
+          multi,
+          :activity,
+          Activity.changeset(activity, %{description: description})
+        )
     end
   end)
 
   project(%ActivityStartTimeUpdated{uuid: uuid, start_time: start_time}, _, fn multi ->
     case Repo.get(Activity, uuid) do
-      nil -> multi
-      activity -> Ecto.Multi.update(multi, :activity, Activity.changeset(activity, %{start_time: start_time}))
+      nil ->
+        multi
+
+      activity ->
+        Ecto.Multi.update(
+          multi,
+          :activity,
+          Activity.changeset(activity, %{start_time: start_time})
+        )
     end
   end)
 
   project(%ActivityEndTimeUpdated{uuid: uuid, end_time: end_time}, _, fn multi ->
     case Repo.get(Activity, uuid) do
-      nil -> multi
-      activity -> Ecto.Multi.update(multi, :activity, Activity.changeset(activity, %{end_time: end_time}))
+      nil ->
+        multi
+
+      activity ->
+        Ecto.Multi.update(multi, :activity, Activity.changeset(activity, %{end_time: end_time}))
     end
   end)
 

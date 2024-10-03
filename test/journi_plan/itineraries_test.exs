@@ -15,13 +15,22 @@ defmodule JourniPlan.ItinerariesTest do
 
   describe "commands should generate events and be projected" do
     test "create itinerary", %{user: user} do
-      {:ok, itinerary} = Itineraries.create_itinerary(%{name: "Test", description: "test", user_id: user.id})
+      {:ok, itinerary} =
+        Itineraries.create_itinerary(%{name: "Test", description: "test", user_id: user.id})
+
       assert itinerary == Itineraries.get_itinerary!(itinerary.uuid)
     end
 
     test "update itinerary", %{user: user} do
-      {:ok, itinerary} = Itineraries.create_itinerary(%{name: "Test", description: "test", user_id: user.id})
-      {:ok, updated_itinerary} = Itineraries.update_itinerary(itinerary, %{name: "Updated name", description: "Updated desc"})
+      {:ok, itinerary} =
+        Itineraries.create_itinerary(%{name: "Test", description: "test", user_id: user.id})
+
+      {:ok, updated_itinerary} =
+        Itineraries.update_itinerary(itinerary, %{
+          name: "Updated name",
+          description: "Updated desc"
+        })
+
       assert updated_itinerary == Itineraries.get_itinerary!(itinerary.uuid)
     end
   end
@@ -61,7 +70,9 @@ defmodule JourniPlan.ItinerariesTest do
       itinerary = itinerary_fixture()
       update_attrs = %{description: "some updated description", name: "some updated name"}
 
-      assert {:ok, %Itinerary{} = itinerary} = Itineraries.update_itinerary(itinerary, update_attrs)
+      assert {:ok, %Itinerary{} = itinerary} =
+               Itineraries.update_itinerary(itinerary, update_attrs)
+
       assert itinerary.description == "some updated description"
       assert itinerary.name == "some updated name"
     end

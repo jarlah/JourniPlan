@@ -50,7 +50,8 @@ defmodule JourniPlan.Itineraries.Aggregates.Activity do
       if activity.end_time != event.end_time and not is_nil(event.end_time),
         do: %ActivityEndTimeUpdated{uuid: activity.uuid, end_time: event.end_time}
 
-    [name_command, description_command, start_time_command, end_time_command] |> Enum.filter(&Function.identity/1)
+    [name_command, description_command, start_time_command, end_time_command]
+    |> Enum.filter(&Function.identity/1)
   end
 
   def execute(%Activity{}, %DeleteActivity{} = event) do

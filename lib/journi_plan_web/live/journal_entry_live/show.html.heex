@@ -16,7 +16,12 @@
 
 <.back navigate={~p"/journal_entries"}>Back to journal_entries</.back>
 
-<.modal :if={@live_action == :edit} id="journal_entry-modal" show on_cancel={JS.patch(~p"/journal_entries/#{@journal_entry}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="journal_entry-modal"
+  show
+  on_cancel={JS.patch(~p"/journal_entries/#{@journal_entry}")}
+>
   <.live_component
     module={JourniPlanWeb.JournalEntryLive.FormComponent}
     id={@journal_entry.uuid}

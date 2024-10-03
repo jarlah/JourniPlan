@@ -35,12 +35,21 @@ defmodule JourniPlanWeb.JournalEntryLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:form, to_form(Itineraries.change_journal_entry(journal_entry, action), as: "journal_entry"))}
+     |> assign(
+       :form,
+       to_form(Itineraries.change_journal_entry(journal_entry, action), as: "journal_entry")
+     )}
   end
 
   @impl true
   def handle_event("validate", %{"journal_entry" => journal_entry_params}, socket) do
-    changeset = Itineraries.change_journal_entry(socket.assigns.journal_entry, socket.assigns.action, journal_entry_params)
+    changeset =
+      Itineraries.change_journal_entry(
+        socket.assigns.journal_entry,
+        socket.assigns.action,
+        journal_entry_params
+      )
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate, as: "journal_entry"))}
   end
 
@@ -66,7 +75,10 @@ defmodule JourniPlanWeb.JournalEntryLive.FormComponent do
   defp save_journal_entry(socket, :new, journal_entry_params) do
     user_id = socket.assigns.current_user.id
     journal_entry_params = Map.put(journal_entry_params, "user_id", user_id)
-    journal_entry_params = Map.put(journal_entry_params, "itinerary_uuid", socket.assigns.itinerary_id)
+
+    journal_entry_params =
+      Map.put(journal_entry_params, "itinerary_uuid", socket.assigns.itinerary_id)
+
     case Itineraries.create_journal_entry(journal_entry_params) do
       {:ok, journal_entry} ->
         notify_parent({:saved, journal_entry})

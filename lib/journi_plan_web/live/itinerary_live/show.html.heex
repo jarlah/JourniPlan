@@ -2,7 +2,11 @@
   Itinerary <%= @itinerary.uuid %>
   <:subtitle>This is an itinerary record from your database.</:subtitle>
   <:actions>
-    <.link patch={~p"/itineraries/#{@itinerary}/show/edit"} phx-click={JS.push_focus()} class="inline-block">
+    <.link
+      patch={~p"/itineraries/#{@itinerary}/show/edit"}
+      phx-click={JS.push_focus()}
+      class="inline-block"
+    >
       <.button class="bg-indigo-600 text-white hover:bg-indigo-700">Edit itinerary</.button>
     </.link>
   </:actions>
@@ -12,24 +16,35 @@
   <:item title="Name"><%= @itinerary.name %></:item>
   <:item title="Description"><%= @itinerary.description %></:item>
 </.list>
-
 <!-- Action Buttons -->
 <div class="mt-4 flex space-x-4">
-  <.link patch={~p"/itineraries/#{@itinerary}/activities/new"} 
-         class="inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+  <.link
+    patch={~p"/itineraries/#{@itinerary}/activities/new"}
+    class="inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+  >
     Add activity
   </.link>
-  <.link patch={~p"/itineraries/#{@itinerary}/journal_entries/new"} 
-         class="inline-block px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+  <.link
+    patch={~p"/itineraries/#{@itinerary}/journal_entries/new"}
+    class="inline-block px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+  >
     Add journal entry
   </.link>
 </div>
 
-<.back navigate={~p"/itineraries"} class="mt-4 inline-block px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+<.back
+  navigate={~p"/itineraries"}
+  class="mt-4 inline-block px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+>
   Back to itineraries
 </.back>
 
-<.modal :if={@live_action == :edit} id="itinerary-modal" show on_cancel={JS.patch(~p"/itineraries/#{@itinerary}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="itinerary-modal"
+  show
+  on_cancel={JS.patch(~p"/itineraries/#{@itinerary}")}
+>
   <.live_component
     module={JourniPlanWeb.ItineraryLive.FormComponent}
     id={@itinerary.uuid}

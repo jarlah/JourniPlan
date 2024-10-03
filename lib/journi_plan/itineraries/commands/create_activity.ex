@@ -27,8 +27,22 @@ defmodule JourniPlan.Itineraries.Commands.CreateActivity do
   @doc false
   def changeset(command, params \\ %{}) do
     {command, @types}
-    |> Changeset.cast(params, [:name, :description, :start_time, :end_time, :itinerary_uuid, :user_id])
-    |> Changeset.validate_required([:name, :description, :start_time, :end_time, :itinerary_uuid, :user_id])
+    |> Changeset.cast(params, [
+      :name,
+      :description,
+      :start_time,
+      :end_time,
+      :itinerary_uuid,
+      :user_id
+    ])
+    |> Changeset.validate_required([
+      :name,
+      :description,
+      :start_time,
+      :end_time,
+      :itinerary_uuid,
+      :user_id
+    ])
     |> foreign_key_exists(Itinerary, :uuid, :itinerary_uuid)
     |> foreign_key_exists(User, :id, :user_id)
   end

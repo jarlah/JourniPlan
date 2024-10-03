@@ -39,7 +39,13 @@ defmodule JourniPlanWeb.ItineraryLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"itinerary" => itinerary_params}, socket) do
-    changeset = Itineraries.change_itinerary(socket.assigns.itinerary, socket.assigns.action, itinerary_params)
+    changeset =
+      Itineraries.change_itinerary(
+        socket.assigns.itinerary,
+        socket.assigns.action,
+        itinerary_params
+      )
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate, as: "itinerary"))}
   end
 

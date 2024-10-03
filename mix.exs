@@ -65,7 +65,7 @@ defmodule JourniPlan.MixProject do
       {:commanded_ecto_projections, "~> 1.4"},
       {:exconstructor, "~> 1.2"},
       {:timex, "~> 3.7"},
-      {:testcontainers, "~> 1.10", only: [:dev, :test], runtime: false},
+      {:testcontainers, "~> 1.10", only: [:dev, :test], runtime: false}
     ]
   end
 

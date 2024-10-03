@@ -46,7 +46,10 @@ defmodule JourniPlan.ItinerariesFixtures do
   def journal_entry_fixture(attrs \\ %{}) do
     user_id = attrs[:user_id] || AccountsFixtures.user_fixture().id
     itinerary_id = attrs[:itinerary_id] || itinerary_fixture(%{user_id: user_id}).uuid
-    activity_id = attrs[:activity_id] || activity_fixture(%{user_id: user_id, itinerary_id: itinerary_id}).uuid
+
+    activity_id =
+      attrs[:activity_id] ||
+        activity_fixture(%{user_id: user_id, itinerary_id: itinerary_id}).uuid
 
     {:ok, journal_entry} =
       attrs

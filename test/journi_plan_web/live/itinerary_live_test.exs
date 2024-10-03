@@ -20,7 +20,6 @@ defmodule JourniPlanWeb.ItineraryLiveTest do
   end
 
   describe "Index" do
-
     test "lists all itineraries", %{conn: conn, itinerary: itinerary} do
       {:ok, _index_live, html} = live(conn, ~p"/itineraries")
 
@@ -83,7 +82,6 @@ defmodule JourniPlanWeb.ItineraryLiveTest do
   end
 
   describe "Show" do
-
     test "displays itinerary", %{conn: conn, itinerary: itinerary} do
       {:ok, _show_live, html} = live(conn, ~p"/itineraries/#{itinerary}")
 

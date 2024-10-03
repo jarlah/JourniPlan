@@ -7,7 +7,11 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
   import JourniPlan.ItinerariesFixtures
 
   @create_attrs %{body: "some body", entry_date: "2024-09-30T17:55", title: "some title"}
-  @update_attrs %{body: "some updated body", entry_date: "2024-10-01T17:55", title: "some updated title"}
+  @update_attrs %{
+    body: "some updated body",
+    entry_date: "2024-10-01T17:55",
+    title: "some updated title"
+  }
   @invalid_attrs %{body: nil, entry_date: nil, title: nil}
 
   setup do
@@ -15,13 +19,12 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
       %{email: "test@example.com", password: "passwordpassword123"}
       |> Accounts.register_user()
 
-      journal_entry = journal_entry_fixture(%{user_id: user.id})
+    journal_entry = journal_entry_fixture(%{user_id: user.id})
 
     {:ok, conn: log_in_user(build_conn(), user), user: user, journal_entry: journal_entry}
   end
 
   describe "Index" do
-
     test "lists all journal_entries", %{conn: conn, journal_entry: journal_entry} do
       {:ok, _index_live, html} = live(conn, ~p"/journal_entries")
 
@@ -30,7 +33,8 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
     end
 
     test "saves new journal_entry", %{conn: conn, journal_entry: journal_entry} do
-      {:ok, index_live, _html} = live(conn, ~p"/itineraries/#{journal_entry.itinerary_uuid}/journal_entries/new")
+      {:ok, index_live, _html} =
+        live(conn, ~p"/itineraries/#{journal_entry.itinerary_uuid}/journal_entries/new")
 
       assert index_live
              |> form("#journal_entry-form", journal_entry: @invalid_attrs)
@@ -79,7 +83,6 @@ defmodule JourniPlanWeb.JournalEntryLiveTest do
   end
 
   describe "Show" do
-
     test "displays journal_entry", %{conn: conn, journal_entry: journal_entry} do
       {:ok, _show_live, html} = live(conn, ~p"/journal_entries/#{journal_entry}")
 

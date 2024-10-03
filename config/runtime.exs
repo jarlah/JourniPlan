@@ -43,10 +43,10 @@ if config_env() == :prod do
     socket_options: maybe_ipv6
 
   database_url_without_query_string =
-      database_events_url
-      |> URI.new!()
-      |> then(&%URI{&1 | query: nil, path: "#{&1.path}_events"})
-      |> URI.to_string()
+    database_events_url
+    |> URI.new!()
+    |> then(&%URI{&1 | query: nil, path: "#{&1.path}_events"})
+    |> URI.to_string()
 
   config :journi_plan, JourniPlan.EventStore,
     serializer: Commanded.Serialization.JsonSerializer,

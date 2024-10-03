@@ -5,8 +5,18 @@ defmodule JourniPlanWeb.ActivityLiveTest do
   alias JourniPlan.Accounts
   import JourniPlan.ItinerariesFixtures
 
-  @create_attrs %{description: "some description", end_time: "2024-09-30T17:57", name: "some name", start_time: "2024-09-30T17:57"}
-  @update_attrs %{description: "some updated description", end_time: "2024-10-01T17:57", name: "some updated name", start_time: "2024-10-01T17:57"}
+  @create_attrs %{
+    description: "some description",
+    end_time: "2024-09-30T17:57",
+    name: "some name",
+    start_time: "2024-09-30T17:57"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    end_time: "2024-10-01T17:57",
+    name: "some updated name",
+    start_time: "2024-10-01T17:57"
+  }
   @invalid_attrs %{description: nil, end_time: nil, name: nil, start_time: nil}
 
   setup do
@@ -14,13 +24,12 @@ defmodule JourniPlanWeb.ActivityLiveTest do
       %{email: "test@example.com", password: "passwordpassword123"}
       |> Accounts.register_user()
 
-      activity = activity_fixture(%{user_id: user.id})
+    activity = activity_fixture(%{user_id: user.id})
 
     {:ok, conn: log_in_user(build_conn(), user), user: user, activity: activity}
   end
 
   describe "Index" do
-
     test "lists all activities", %{conn: conn, activity: activity} do
       {:ok, _index_live, html} = live(conn, ~p"/activities")
 
@@ -29,7 +38,8 @@ defmodule JourniPlanWeb.ActivityLiveTest do
     end
 
     test "saves new activity", %{conn: conn, activity: activity} do
-      {:ok, index_live, _html} = live(conn, ~p"/itineraries/#{activity.itinerary_uuid}/activities/new")
+      {:ok, index_live, _html} =
+        live(conn, ~p"/itineraries/#{activity.itinerary_uuid}/activities/new")
 
       assert index_live
              |> form("#activity-form", activity: @invalid_attrs)
@@ -78,7 +88,6 @@ defmodule JourniPlanWeb.ActivityLiveTest do
   end
 
   describe "Show" do
-
     test "displays activity", %{conn: conn, activity: activity} do
       {:ok, _show_live, html} = live(conn, ~p"/activities/#{activity}")
 

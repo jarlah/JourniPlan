@@ -43,21 +43,20 @@ defmodule JourniPlan.Itineraries.Aggregates.JournalEntry do
     [title_command, body_command] |> Enum.filter(&Function.identity/1)
   end
 
-
   def execute(%JournalEntry{}, %DeleteJournalEntry{uuid: uuid}) do
     %JournalEntryDeleted{uuid: uuid}
   end
 
   def apply(%JournalEntry{} = journal_entry, %JournalEntryCreated{} = event) do
     %JournalEntry{
-      journal_entry |
-      uuid: event.uuid,
-      title: event.title,
-      body: event.body,
-      entry_date: event.entry_date,
-      itinerary_uuid: event.itinerary_uuid,
-      activity_uuid: event.activity_uuid,
-      user_id: event.user_id
+      journal_entry
+      | uuid: event.uuid,
+        title: event.title,
+        body: event.body,
+        entry_date: event.entry_date,
+        itinerary_uuid: event.itinerary_uuid,
+        activity_uuid: event.activity_uuid,
+        user_id: event.user_id
     }
   end
 

@@ -1,8 +1,8 @@
 defmodule JourniPlan.Itineraries do
-
   import Ecto.Query, warn: false
   alias JourniPlan.App
   alias JourniPlan.Repo
+
   alias JourniPlan.Itineraries.Commands.{
     CreateItinerary,
     UpdateItinerary,
@@ -14,6 +14,7 @@ defmodule JourniPlan.Itineraries do
     UpdateJournalEntry,
     DeleteJournalEntry
   }
+
   alias JourniPlan.Itineraries.Projections.Itinerary
   alias JourniPlan.Itineraries.Projections.Activity
   alias JourniPlan.Itineraries.Projections.JournalEntry
@@ -103,24 +104,28 @@ defmodule JourniPlan.Itineraries do
 
   def get_itineraries_by_user_id(user_id) do
     query = from(i in Itinerary, where: i.user_id == ^user_id)
+
     Repo.all(query)
     |> Repo.preload([:activities, :journal_entries])
   end
 
   def get_activities_by_itinerary_id(itinerary_uuid) do
     query = from(a in Activity, where: a.itinerary_uuid == ^itinerary_uuid)
+
     Repo.all(query)
     |> Repo.preload(:itinerary)
   end
 
   def get_journal_entries_by_itinerary_id(itinerary_uuid) do
     query = from(j in JournalEntry, where: j.itinerary_uuid == ^itinerary_uuid)
+
     Repo.all(query)
     |> Repo.preload([:activity, :itinerary])
   end
 
   def get_journal_entries_by_activity_id(activity_uuid) do
     query = from(j in JournalEntry, where: j.activity_uuid == ^activity_uuid)
+
     Repo.all(query)
     |> Repo.preload([:activity, :itinerary])
   end
@@ -182,6 +187,7 @@ defmodule JourniPlan.Itineraries do
 
   def list_user_activities(user_id) do
     query = from(i in Activity, where: i.user_id == ^user_id)
+
     Repo.all(query)
     |> Repo.preload(:itinerary)
   end
@@ -277,5 +283,4 @@ defmodule JourniPlan.Itineraries do
       reply -> reply
     end
   end
-
 end

@@ -7,7 +7,7 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
 
   alias JourniPlan.Repo
 
-  import  JourniPlan.Utils.UUID
+  import JourniPlan.Utils.UUID
 
   alias JourniPlan.Itineraries.Events.{
     JournalEntryCreated,
@@ -38,15 +38,29 @@ defmodule JourniPlan.Itineraries.Projectors.JournalEntry do
 
   project(%JournalEntryTitleUpdated{uuid: uuid, title: title}, _, fn multi ->
     case Repo.get(JournalEntry, uuid) do
-      nil -> multi
-      journal_entry -> Ecto.Multi.update(multi, :journal_entry, JournalEntry.changeset(journal_entry, %{title: title}))
+      nil ->
+        multi
+
+      journal_entry ->
+        Ecto.Multi.update(
+          multi,
+          :journal_entry,
+          JournalEntry.changeset(journal_entry, %{title: title})
+        )
     end
   end)
 
   project(%JournalEntryBodyUpdated{uuid: uuid, body: body}, _, fn multi ->
     case Repo.get(JournalEntry, uuid) do
-      nil -> multi
-      journal_entry -> Ecto.Multi.update(multi, :journal_entry, JournalEntry.changeset(journal_entry, %{body: body}))
+      nil ->
+        multi
+
+      journal_entry ->
+        Ecto.Multi.update(
+          multi,
+          :journal_entry,
+          JournalEntry.changeset(journal_entry, %{body: body})
+        )
     end
   end)
 

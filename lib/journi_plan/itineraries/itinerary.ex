@@ -9,10 +9,10 @@ defmodule JourniPlan.Itineraries.Itinerary do
     field :description, :string
     field :name, :string
 
-    has_many :activities, JourniPlan.Itineraries.Projections.Activity,
+    has_many :activities, JourniPlan.Itineraries.Activity,
       foreign_key: :itinerary_uuid
 
-    has_many :journal_entries, JourniPlan.Itineraries.Projections.JournalEntry,
+    has_many :journal_entries, JourniPlan.Itineraries.JournalEntry,
       foreign_key: :itinerary_uuid
 
     belongs_to :user, JourniPlan.Accounts.User

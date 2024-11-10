@@ -36,7 +36,7 @@ defmodule JourniPlan.ItinerariesTest do
   end
 
   describe "itineraries" do
-    alias JourniPlan.Itineraries.Projections.Itinerary
+    alias JourniPlan.Itineraries.Itinerary
 
     import JourniPlan.ItinerariesFixtures
 

@@ -11,7 +11,7 @@ defmodule JourniPlan.Itineraries.Activity do
     field :start_time, :utc_datetime
     field :end_time, :utc_datetime
 
-    belongs_to :itinerary, JourniPlan.Itineraries.Projections.Itinerary,
+    belongs_to :itinerary, JourniPlan.Itineraries.Itinerary,
       references: :uuid,
       foreign_key: :itinerary_uuid,
       type: :binary_id

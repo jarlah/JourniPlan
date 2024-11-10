@@ -14,15 +14,15 @@
   JourniPlan.Accounts.register_user(%{email: "admin@localhost", password: "superpassword123"})
 
 {:ok, itinerary} =
-  JourniPlan.Itineraries.create_itinerary(%{
+  %JourniPlan.Itineraries.Itinerary{
     uuid: Ecto.UUID.generate(),
     name: "My first itinerary",
     description: "This is my first itinerary",
     user_id: user.id
-  })
+  } |> JourniPlan.Repo.insert
 
 {:ok, activity} =
-  JourniPlan.Itineraries.create_activity(%{
+  %JourniPlan.Itineraries.Activity{
     uuid: Ecto.UUID.generate(),
     name: "My first activity",
     description: "This is my first activity",
@@ -30,10 +30,10 @@
     end_time: "2024-09-26T15:00",
     itinerary_uuid: itinerary.uuid,
     user_id: user.id
-  })
+  } |> JourniPlan.Repo.insert
 
 {:ok, _journal_entry} =
-  JourniPlan.Itineraries.create_journal_entry(%{
+  %JourniPlan.Itineraries.JournalEntry{
     uuid: Ecto.UUID.generate(),
     title: "My first journal entry",
     body: "This is my first journal entry",
@@ -41,4 +41,4 @@
     itinerary_uuid: itinerary.uuid,
     activity_uuid: activity.uuid,
     user_id: user.id
-  })
+  } |> JourniPlan.Repo.insert

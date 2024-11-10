@@ -1,4 +1,4 @@
-defmodule JourniPlan.Itineraries.Projections.JournalEntry do
+defmodule JourniPlan.Itineraries.JournalEntry do
   use Ecto.Schema
   import Ecto.Changeset
 

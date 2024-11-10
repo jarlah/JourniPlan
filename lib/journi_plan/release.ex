@@ -8,12 +8,6 @@ defmodule JourniPlan.Release do
   def migrate do
     load_app()
 
-    {:ok, _} = Application.ensure_all_started(:postgrex)
-    {:ok, _} = Application.ensure_all_started(:ssl)
-    config = JourniPlan.EventStore.config()
-    :ok = EventStore.Tasks.Create.exec(config, [])
-    :ok = EventStore.Tasks.Init.exec(config, [])
-
     for repo <- repos() do
       {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :up, all: true))
     end

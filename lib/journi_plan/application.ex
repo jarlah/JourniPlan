@@ -8,8 +8,6 @@ defmodule JourniPlan.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      JourniPlan.App,
-      JourniPlan.Itineraries.Supervisor,
       JourniPlanWeb.Telemetry,
       JourniPlan.Repo,
       {DNSCluster, query: Application.get_env(:journi_plan, :dns_cluster_query) || :ignore},

@@ -1,23 +1,11 @@
 defmodule JourniPlan.Itineraries do
   import Ecto.Query, warn: false
-  alias JourniPlan.App
+
   alias JourniPlan.Repo
 
-  alias JourniPlan.Itineraries.Commands.{
-    CreateItinerary,
-    UpdateItinerary,
-    DeleteItinerary,
-    CreateActivity,
-    UpdateActivity,
-    DeleteActivity,
-    CreateJournalEntry,
-    UpdateJournalEntry,
-    DeleteJournalEntry
-  }
-
-  alias JourniPlan.Itineraries.Projections.Itinerary
-  alias JourniPlan.Itineraries.Projections.Activity
-  alias JourniPlan.Itineraries.Projections.JournalEntry
+  alias JourniPlan.Itineraries.Itinerary
+  alias JourniPlan.Itineraries.Activity
+  alias JourniPlan.Itineraries.JournalEntry
 
   def list_user_itineraries(user_id) do
     from(i in Itinerary, where: i.user_id == ^user_id)
@@ -39,34 +27,23 @@ defmodule JourniPlan.Itineraries do
   def change_itinerary(itinerary, action, params \\ nil)
 
   def change_itinerary(%Itinerary{} = itinerary, :edit, params) do
-    UpdateItinerary.changeset(
-      %UpdateItinerary{uuid: itinerary.uuid},
-      params || Map.from_struct(itinerary)
-    )
+    itinerary |> Itinerary.changeset(params)
   end
 
   def change_itinerary(_itinerary, :new, params) do
-    CreateItinerary.changeset(
-      %CreateItinerary{},
-      params || %{}
-    )
+    %Itinerary{} |> Itinerary.changeset(params)
   end
 
   def create_itinerary(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
+    attrs = Map.put(attrs, :uuid, uuid)
 
-    command =
-      attrs
-      |> CreateItinerary.new()
-      |> CreateItinerary.assign_uuid(uuid)
-
-    changeset = CreateItinerary.changeset(command, attrs)
+    changeset = Itinerary.changeset(%Itinerary{}, attrs)
 
     if changeset.valid? do
-      with :ok <- App.dispatch(command, consistency: :strong) do
-        {:ok, get_itinerary!(uuid)}
-      else
-        reply -> reply
+      case Repo.insert(changeset) do
+        {:ok, itinerary} -> {:ok, itinerary}
+        {:error, changeset} -> {:error, changeset}
       end
     else
       {:error, changeset}
@@ -74,32 +51,21 @@ defmodule JourniPlan.Itineraries do
   end
 
   def update_itinerary(%Itinerary{uuid: uuid}, attrs) do
-    command =
-      attrs
-      |> UpdateItinerary.new()
-      |> UpdateItinerary.assign_uuid(uuid)
-
-    changeset = UpdateItinerary.changeset(command, attrs)
+    itinerary = get_itinerary!(uuid)
+    changeset = Itinerary.changeset(itinerary, attrs)
 
     if changeset.valid? do
-      with :ok <- App.dispatch(command, consistency: :strong) do
-        {:ok, get_itinerary!(uuid)}
-      else
-        reply -> reply
+      case Repo.update(changeset) do
+        {:ok, itinerary} -> {:ok, itinerary}
+        {:error, changeset} -> {:error, changeset}
       end
     else
       {:error, changeset}
     end
   end
 
-  def delete_itinerary(%Itinerary{uuid: uuid} = itinerary) do
-    command = %DeleteItinerary{uuid: uuid}
-
-    with :ok <- App.dispatch(command, consistency: :strong) do
-      {:ok, itinerary}
-    else
-      reply -> reply
-    end
+  def delete_itinerary(%Itinerary{uuid: uuid}) do
+    %Itinerary{uuid: uuid} |> Repo.delete
   end
 
   def get_itineraries_by_user_id(user_id) do
@@ -137,19 +103,13 @@ defmodule JourniPlan.Itineraries do
 
   def create_activity(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
-
-    command =
-      attrs
-      |> CreateActivity.new()
-      |> CreateActivity.assign_uuid(uuid)
-
-    changeset = CreateActivity.changeset(command, attrs)
+    attrs = Map.put(attrs, :uuid, uuid)
+    changeset = Activity.changeset(%Activity{}, attrs)
 
     if changeset.valid? do
-      with :ok <- App.dispatch(command, consistency: :strong) do
-        {:ok, get_activity!(uuid)}
-      else
-        reply -> reply
+      case Repo.insert(changeset) do
+        {:ok, activity} -> {:ok, activity}
+        {:error, changeset} -> {:error, changeset}
       end
     else
       {:error, changeset}
@@ -157,32 +117,21 @@ defmodule JourniPlan.Itineraries do
   end
 
   def update_activity(%Activity{uuid: uuid}, attrs) do
-    command =
-      attrs
-      |> UpdateActivity.new()
-      |> UpdateActivity.assign_uuid(uuid)
-
-    changeset = UpdateActivity.changeset(command, attrs)
+    activity = get_activity!(uuid)
+    changeset = Activity.changeset(activity, attrs)
 
     if changeset.valid? do
-      with :ok <- App.dispatch(command, consistency: :strong) do
-        {:ok, get_activity!(uuid)}
-      else
-        reply -> reply
+      case Repo.update(changeset) do
+        {:ok, updated_entry} -> {:ok, updated_entry}
+        {:error, changeset} -> {:error, changeset}
       end
     else
       {:error, changeset}
     end
   end
 
-  def delete_activity(%Activity{uuid: uuid} = activity) do
-    command = %DeleteActivity{uuid: uuid}
-
-    with :ok <- App.dispatch(command, consistency: :strong) do
-      {:ok, activity}
-    else
-      reply -> reply
-    end
+  def delete_activity(%Activity{uuid: uuid}) do
+    %Activity{uuid: uuid} |> Repo.delete
   end
 
   def list_user_activities(user_id) do
@@ -205,50 +154,32 @@ defmodule JourniPlan.Itineraries do
   def change_activity(activity, action, params \\ nil)
 
   def change_activity(%Activity{} = activity, :edit, params) do
-    UpdateActivity.changeset(
-      %UpdateActivity{uuid: activity.uuid},
-      params || Map.from_struct(activity)
-    )
+    activity |> Activity.changeset(params)
   end
 
   def change_activity(_activity, :new, params) do
-    CreateActivity.changeset(
-      %CreateActivity{},
-      params || %{}
-    )
+    %Activity{} |> Activity.changeset(params)
   end
 
   def change_journal_entry(journal_entry, action, params \\ nil)
 
   def change_journal_entry(%JournalEntry{} = journal_entry, :edit, params) do
-    UpdateJournalEntry.changeset(
-      %UpdateJournalEntry{uuid: journal_entry.uuid},
-      params || Map.from_struct(journal_entry)
-    )
+    journal_entry |> JournalEntry.changeset(params)
   end
 
   def change_journal_entry(_journal_entry, :new, params) do
-    CreateJournalEntry.changeset(
-      %CreateJournalEntry{},
-      params || %{}
-    )
+    %JournalEntry{} |> JournalEntry.changeset(params)
   end
 
   def create_journal_entry(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
-
-    command =
-      attrs
-      |> CreateJournalEntry.new()
-      |> CreateJournalEntry.assign_uuid(uuid)
-
-    changeset = CreateJournalEntry.changeset(command, attrs)
+    attrs = Map.put(attrs, :uuid, uuid)
+    changeset = JournalEntry.changeset(%JournalEntry{}, attrs)
 
     if changeset.valid? do
-      with :ok <- App.dispatch(command, consistency: :strong) do
-        {:ok, get_journal_entry!(uuid)}
-      else
-        reply -> reply
+      case Repo.insert(changeset) do
+        {:ok, journal_entry} -> {:ok, journal_entry}
+        {:error, changeset} -> {:error, changeset}
       end
     else
       {:error, changeset}
@@ -256,31 +187,20 @@ defmodule JourniPlan.Itineraries do
   end
 
   def update_journal_entry(%JournalEntry{uuid: uuid}, attrs) do
-    command =
-      attrs
-      |> UpdateJournalEntry.new()
-      |> UpdateJournalEntry.assign_uuid(uuid)
-
-    changeset = UpdateJournalEntry.changeset(command, attrs)
+    journal_entry = get_journal_entry!(uuid)
+    changeset = JournalEntry.changeset(journal_entry, attrs)
 
     if changeset.valid? do
-      with :ok <- App.dispatch(command, consistency: :strong) do
-        {:ok, get_journal_entry!(uuid)}
-      else
-        reply -> reply
+      case Repo.update(changeset) do
+        {:ok, updated_entry} -> {:ok, updated_entry}
+        {:error, changeset} -> {:error, changeset}
       end
     else
       {:error, changeset}
     end
   end
 
-  def delete_journal_entry(%JournalEntry{uuid: uuid} = journal_entry) do
-    command = %DeleteJournalEntry{uuid: uuid}
-
-    with :ok <- App.dispatch(command, consistency: :strong) do
-      {:ok, journal_entry}
-    else
-      reply -> reply
-    end
+  def delete_journal_entry(%JournalEntry{uuid: uuid}) do
+    %JournalEntry{uuid: uuid} |> Repo.delete
   end
 end

@@ -15,6 +15,7 @@
 
 {:ok, itinerary} =
   JourniPlan.Itineraries.create_itinerary(%{
+    uuid: Ecto.UUID.generate(),
     name: "My first itinerary",
     description: "This is my first itinerary",
     user_id: user.id
@@ -22,6 +23,7 @@
 
 {:ok, activity} =
   JourniPlan.Itineraries.create_activity(%{
+    uuid: Ecto.UUID.generate(),
     name: "My first activity",
     description: "This is my first activity",
     start_time: "2024-09-22T12:34",
@@ -32,6 +34,7 @@
 
 {:ok, _journal_entry} =
   JourniPlan.Itineraries.create_journal_entry(%{
+    uuid: Ecto.UUID.generate(),
     title: "My first journal entry",
     body: "This is my first journal entry",
     entry_date: "2024-09-24T12:34",

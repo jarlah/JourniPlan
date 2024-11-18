@@ -1,4 +1,5 @@
 defmodule JourniPlan.Itineraries do
+  use Bond
   import Ecto.Query, warn: false
 
   alias JourniPlan.Repo
@@ -24,7 +25,7 @@ defmodule JourniPlan.Itineraries do
     |> Repo.preload([:activities, :journal_entries])
   end
 
-  def change_itinerary(itinerary, action, params \\ nil)
+  def change_itinerary(itinerary, action, params \\ %{})
 
   def change_itinerary(%Itinerary{} = itinerary, :edit, params) do
     itinerary |> Itinerary.changeset(params)
@@ -34,15 +35,16 @@ defmodule JourniPlan.Itineraries do
     %Itinerary{} |> Itinerary.changeset(params)
   end
 
+  @pre attrs_doesnt_have_id: not Map.has_key?(attrs, "uuid")
   def create_itinerary(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
-    attrs = Map.put(attrs, :uuid, uuid)
+    attrs = Map.put(attrs, "uuid", uuid)
 
     changeset = Itinerary.changeset(%Itinerary{}, attrs)
 
     if changeset.valid? do
       case Repo.insert(changeset) do
-        {:ok, itinerary} -> {:ok, itinerary}
+        {:ok, itinerary} -> {:ok, itinerary |> Repo.preload([:activities, :journal_entries])}
         {:error, changeset} -> {:error, changeset}
       end
     else
@@ -65,7 +67,7 @@ defmodule JourniPlan.Itineraries do
   end
 
   def delete_itinerary(%Itinerary{uuid: uuid}) do
-    %Itinerary{uuid: uuid} |> Repo.delete
+    %Itinerary{uuid: uuid} |> Repo.delete()
   end
 
   def get_itineraries_by_user_id(user_id) do
@@ -103,7 +105,7 @@ defmodule JourniPlan.Itineraries do
 
   def create_activity(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
-    attrs = Map.put(attrs, :uuid, uuid)
+    attrs = Map.put(attrs, "uuid", uuid)
     changeset = Activity.changeset(%Activity{}, attrs)
 
     if changeset.valid? do
@@ -131,7 +133,7 @@ defmodule JourniPlan.Itineraries do
   end
 
   def delete_activity(%Activity{uuid: uuid}) do
-    %Activity{uuid: uuid} |> Repo.delete
+    %Activity{uuid: uuid} |> Repo.delete()
   end
 
   def list_user_activities(user_id) do
@@ -151,7 +153,7 @@ defmodule JourniPlan.Itineraries do
     |> Repo.preload([:activity, :itinerary])
   end
 
-  def change_activity(activity, action, params \\ nil)
+  def change_activity(activity, action, params \\ %{})
 
   def change_activity(%Activity{} = activity, :edit, params) do
     activity |> Activity.changeset(params)
@@ -161,7 +163,7 @@ defmodule JourniPlan.Itineraries do
     %Activity{} |> Activity.changeset(params)
   end
 
-  def change_journal_entry(journal_entry, action, params \\ nil)
+  def change_journal_entry(journal_entry, action, params \\ %{})
 
   def change_journal_entry(%JournalEntry{} = journal_entry, :edit, params) do
     journal_entry |> JournalEntry.changeset(params)
@@ -173,7 +175,7 @@ defmodule JourniPlan.Itineraries do
 
   def create_journal_entry(attrs \\ %{}) do
     uuid = Ecto.UUID.generate()
-    attrs = Map.put(attrs, :uuid, uuid)
+    attrs = Map.put(attrs, "uuid", uuid)
     changeset = JournalEntry.changeset(%JournalEntry{}, attrs)
 
     if changeset.valid? do
@@ -201,6 +203,6 @@ defmodule JourniPlan.Itineraries do
   end
 
   def delete_journal_entry(%JournalEntry{uuid: uuid}) do
-    %JournalEntry{uuid: uuid} |> Repo.delete
+    %JournalEntry{uuid: uuid} |> Repo.delete()
   end
 end

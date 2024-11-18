@@ -21,7 +21,8 @@ import JourniPlan.TimexUtils, only: [parse_to_datetime!: 1]
     name: "My first itinerary",
     description: "This is my first itinerary",
     user_id: user.id
-  } |> JourniPlan.Repo.insert
+  }
+  |> JourniPlan.Repo.insert()
 
 {:ok, activity} =
   %JourniPlan.Itineraries.Activity{
@@ -32,7 +33,8 @@ import JourniPlan.TimexUtils, only: [parse_to_datetime!: 1]
     end_time: parse_to_datetime!("2024-09-26T15:00"),
     itinerary_uuid: itinerary.uuid,
     user_id: user.id
-  } |> JourniPlan.Repo.insert
+  }
+  |> JourniPlan.Repo.insert()
 
 {:ok, _journal_entry} =
   %JourniPlan.Itineraries.JournalEntry{
@@ -43,4 +45,5 @@ import JourniPlan.TimexUtils, only: [parse_to_datetime!: 1]
     itinerary_uuid: itinerary.uuid,
     activity_uuid: activity.uuid,
     user_id: user.id
-  } |> JourniPlan.Repo.insert
+  }
+  |> JourniPlan.Repo.insert()

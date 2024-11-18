@@ -25,8 +25,9 @@ defmodule JourniPlan.Itineraries.JournalEntry do
     timestamps(type: :utc_datetime)
   end
 
-  def changeset(journal_entry, attrs) do
+  def changeset(journal_entry, attrs \\ %{}) do
     journal_entry
-    |> cast(attrs, [:title, :body, :entry_date])
+    |> cast(attrs, [:uuid, :user_id, :itinerary_uuid, :activity_uuid, :title, :body, :entry_date])
+    |> validate_required([:user_id, :body, :entry_date, :title])
   end
 end

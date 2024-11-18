@@ -9,11 +9,9 @@ defmodule JourniPlan.Itineraries.Itinerary do
     field :description, :string
     field :name, :string
 
-    has_many :activities, JourniPlan.Itineraries.Activity,
-      foreign_key: :itinerary_uuid
+    has_many :activities, JourniPlan.Itineraries.Activity, foreign_key: :itinerary_uuid
 
-    has_many :journal_entries, JourniPlan.Itineraries.JournalEntry,
-      foreign_key: :itinerary_uuid
+    has_many :journal_entries, JourniPlan.Itineraries.JournalEntry, foreign_key: :itinerary_uuid
 
     belongs_to :user, JourniPlan.Accounts.User
 
@@ -21,8 +19,9 @@ defmodule JourniPlan.Itineraries.Itinerary do
   end
 
   @doc false
-  def changeset(itinerary, attrs) do
+  def changeset(itinerary, attrs \\ %{}) do
     itinerary
-    |> cast(attrs, [:name, :description])
+    |> cast(attrs, [:uuid, :user_id, :name, :description])
+    |> validate_required([:user_id, :name, :description])
   end
 end

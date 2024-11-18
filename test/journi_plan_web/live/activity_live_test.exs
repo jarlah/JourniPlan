@@ -24,7 +24,7 @@ defmodule JourniPlanWeb.ActivityLiveTest do
       %{email: "test@example.com", password: "passwordpassword123"}
       |> Accounts.register_user()
 
-    activity = activity_fixture(%{user_id: user.id})
+    activity = activity_fixture(%{"user_id" => user.id})
 
     {:ok, conn: log_in_user(build_conn(), user), user: user, activity: activity}
   end

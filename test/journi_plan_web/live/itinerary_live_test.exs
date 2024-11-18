@@ -14,7 +14,7 @@ defmodule JourniPlanWeb.ItineraryLiveTest do
       %{email: "test@example.com", password: "passwordpassword123"}
       |> Accounts.register_user()
 
-    itinerary = itinerary_fixture(%{user_id: user.id})
+    itinerary = itinerary_fixture(%{"user_id" => user.id})
 
     {:ok, conn: log_in_user(build_conn(), user), user: user, itinerary: itinerary}
   end

@@ -2,7 +2,7 @@ defmodule JourniPlanWeb.ItineraryLive.Index do
   use JourniPlanWeb, :live_view
 
   alias JourniPlan.Itineraries
-  alias JourniPlan.Itineraries.Projections.Itinerary
+  alias JourniPlan.Itineraries.Itinerary
 
   @impl true
   def mount(_params, _session, socket) do

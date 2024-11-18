@@ -1,4 +1,4 @@
-defmodule JourniPlan.Itineraries.Projections.JournalEntry do
+defmodule JourniPlan.Itineraries.JournalEntry do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -10,12 +10,12 @@ defmodule JourniPlan.Itineraries.Projections.JournalEntry do
     field :entry_date, :utc_datetime
     field :title, :string
 
-    belongs_to :activity, JourniPlan.Itineraries.Projections.Activity,
+    belongs_to :activity, JourniPlan.Itineraries.Activity,
       references: :uuid,
       foreign_key: :activity_uuid,
       type: :binary_id
 
-    belongs_to :itinerary, JourniPlan.Itineraries.Projections.Itinerary,
+    belongs_to :itinerary, JourniPlan.Itineraries.Itinerary,
       references: :uuid,
       foreign_key: :itinerary_uuid,
       type: :binary_id
@@ -25,8 +25,9 @@ defmodule JourniPlan.Itineraries.Projections.JournalEntry do
     timestamps(type: :utc_datetime)
   end
 
-  def changeset(journal_entry, attrs) do
+  def changeset(journal_entry, attrs \\ %{}) do
     journal_entry
-    |> cast(attrs, [:title, :body, :entry_date])
+    |> cast(attrs, [:uuid, :user_id, :itinerary_uuid, :activity_uuid, :title, :body, :entry_date])
+    |> validate_required([:user_id, :body, :entry_date, :title])
   end
 end

@@ -18,6 +18,7 @@ jobs:
   build:
 
     name: Build and test
+    runs-on: ubuntu
 
     steps:
     - uses: actions/checkout@v4

@@ -83,7 +83,7 @@ defmodule JourniPlan.MixProject do
       ],
       "ecto.init": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       reset: ["ecto.init"],
-      test: ["reset", "test --stale"],
+      test: ["reset", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind journi_plan", "esbuild journi_plan"],
       "assets.deploy": [

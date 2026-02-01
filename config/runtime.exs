@@ -20,6 +20,16 @@ if System.get_env("PHX_SERVER") do
   config :journi_plan, JourniPlanWeb.Endpoint, server: true
 end
 
+if config_env() in [:dev, :test] do
+  if url = System.get_env("DATABASE_URL") do
+    config :journi_plan, JourniPlan.Repo,
+      url: url,
+      pool: Ecto.Adapters.SQL.Sandbox,
+      show_sensitive_data_on_connection_error: true,
+      pool_size: 10
+  end
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

@@ -35,3 +35,8 @@ journi_plan-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# direnv and flake
+.direnv/
+.mix/
+.hex/
+.nix-mix/

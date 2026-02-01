@@ -63,7 +63,7 @@ defmodule JourniPlan.MixProject do
       {:exconstructor, "~> 1.2"},
       {:timex, "~> 3.7"},
       {:bond, "~> 0.8.3"},
-      {:testcontainers, "~> 1.11", only: [:dev, :test], runtime: false}
+      {:testcontainers, "~> 1.14", only: [:dev, :test], runtime: false}
     ]
   end
 
